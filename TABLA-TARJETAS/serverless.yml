@@ -1,0 +1,72 @@
+org: antoniocot
+service: api-tarjetas
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 1024
+  timeout: 30
+  iam:
+    role: arn:aws:iam::316129865556:role/LabRole
+  environment:
+    TABLE_NAME: TABLA-TARJETAS
+
+functions:
+  CrearTarjeta:
+    handler: CrearTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/crear
+          method: post
+          cors: true
+          integration: lambda
+  ListarTarjetas:
+    handler: ListarTarjetas.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/listar
+          method: post
+          cors: true
+          integration: lambda
+  BuscarTarjeta:
+    handler: BuscarTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/buscar
+          method: post
+          cors: true
+          integration: lambda
+  ModificarTarjeta:
+    handler: ModificarTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/modificar
+          method: put
+          cors: true
+          integration: lambda
+  EliminarTarjeta:
+    handler: EliminarTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/eliminar
+          method: delete
+          cors: true
+          integration: lambda
+
+resources:
+  Resources:
+    TarjetasTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.TABLE_NAME}
+        AttributeDefinitions:
+          - AttributeName: cuenta_id
+            AttributeType: S
+          - AttributeName: tarjeta_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: cuenta_id
+            KeyType: HASH
+          - AttributeName: tarjeta_id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
