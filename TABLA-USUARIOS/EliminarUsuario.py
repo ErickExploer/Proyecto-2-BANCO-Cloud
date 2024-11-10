@@ -1,13 +1,26 @@
 import boto3
-from validate_token import validate_token
+import json
 
 def lambda_handler(event, context):
+    body = event.get('body')
+    if body is None:
+        body = event
+    elif isinstance(body, str):
+        try:
+            body = json.loads(body)
+        except json.JSONDecodeError:
+            return {
+                'statusCode': 400,
+                'body': 'Solicitud inválida. El formato del JSON es incorrecto.'
+            }
 
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    usuario_id = event['pathParameters']['usuario_id']
+    usuario_id = body.get('usuario_id')
+    if not usuario_id:
+        return {
+            'statusCode': 400,
+            'body': 'Solicitud inválida. Falta el campo usuario_id.'
+        }
+
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('TABLA-USUARIOS')
     response = table.delete_item(
@@ -15,7 +28,7 @@ def lambda_handler(event, context):
             'usuario_id': usuario_id
         }
     )
-    
+
     return {
         'statusCode': 200,
         'body': f'Usuario {usuario_id} eliminado exitosamente'

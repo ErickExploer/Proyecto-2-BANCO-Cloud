@@ -2,44 +2,84 @@ import boto3
 import hashlib
 import uuid
 from datetime import datetime, timedelta
+import json
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
 def lambda_handler(event, context):
-    # Obtener usuario y contraseña de la entrada
-    usuario_id = event['usuario_id']
-    password = event['password']
+    if 'body' in event:
+        if isinstance(event['body'], str):
+            try:
+                body = json.loads(event['body'])
+            except json.JSONDecodeError:
+                return {
+                    'statusCode': 400,
+                    'body': {
+                        'message': 'Error en el formato del JSON enviado.'
+                    }
+                }
+        else:
+            body = event['body']
+    else:
+        body = event
+
+    email = body.get('email')
+    password = body.get('password')
+
+    if not email or not password:
+        return {
+            'statusCode': 400,
+            'body': {
+                'message': 'Faltan los campos requeridos: email y/o password.'
+            }
+        }
+
     hashed_password = hash_password(password)
-    
-    # Conexión a DynamoDB
+
     dynamodb = boto3.resource('dynamodb')
-    usuarios_table = dynamodb.Table('usuarios')
-    
-    # Validar usuario
-    response = usuarios_table.get_item(Key={'usuario_id': usuario_id})
-    if 'Item' not in response:
-        return {'statusCode': 403, 'body': 'Usuario no existe'}
-    
-    # Validar contraseña
-    if hashed_password != response['Item']['password']:
-        return {'statusCode': 403, 'body': 'Contraseña incorrecta'}
-    
-    # Generar token
+    usuarios_table = dynamodb.Table('TABLA-USUARIOS')
+
+    response = usuarios_table.scan(
+        FilterExpression="email = :email_val",
+        ExpressionAttributeValues={":email_val": email}
+    )
+    items = response.get('Items')
+
+    if not items:
+        return {
+            'statusCode': 403,
+            'body': {
+                'message': 'Usuario no existe'
+            }
+        }
+
+    user = items[0]
+    if hashed_password != user['password']:
+        return {
+            'statusCode': 403,
+            'body': {
+                'message': 'Contraseña incorrecta'
+            }
+        }
+
     token = str(uuid.uuid4())
     expires = (datetime.now() + timedelta(minutes=60)).strftime('%Y-%m-%d %H:%M:%S')
-    
-    # Guardar token en la tabla de TOKENS_ACCESO
-    tokens_table = dynamodb.Table('tokens_acceso')
+
+    tokens_table = dynamodb.Table('TABLA-TOKENS_ACCESO')
     tokens_table.put_item(
         Item={
             'token': token,
-            'expires': expires
+            'expires': expires,
+            'usuario_id': user['usuario_id']
         }
     )
     
     return {
         'statusCode': 200,
-        'token': token,
-        'expires': expires
+        'body': {
+            'message': 'Inicio de sesión exitoso',
+            'token': token,
+            'expires': expires
+        }
     }
