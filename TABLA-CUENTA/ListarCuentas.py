@@ -1,33 +1,39 @@
 import boto3
 import json
-from datetime import datetime
+from decimal import Decimal
 
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
+def decimal_to_float(item):
+    for key, value in item.items():
+        if isinstance(value, Decimal):
+            item[key] = float(value)
+    return item
 
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    body = json.loads(event['body'])
+    body = event.get('body')
+    if isinstance(body, str):
+        body = json.loads(body)
+
     usuario_id = body.get('usuario_id')
-    
+
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-CUENTA')
-    response = table.query(
+    usuarios_table = dynamodb.Table('TABLA-USUARIOS')
+    cuentas_table = dynamodb.Table('TABLA-CUENTA')
+
+    response = usuarios_table.get_item(Key={'usuario_id': usuario_id})
+    if 'Item' not in response:
+        return {
+            'statusCode': 400,
+            'body': 'Usuario no existe'
+        }
+
+    cuentas_response = cuentas_table.query(
         KeyConditionExpression=boto3.dynamodb.conditions.Key('usuario_id').eq(usuario_id)
     )
-    items = response['Items']
-    
+    cuentas = cuentas_response.get('Items', [])
+
+    cuentas = [decimal_to_float(cuenta) for cuenta in cuentas]
+
     return {
         'statusCode': 200,
-        'body': json.dumps(items)
+        'body': cuentas
     }

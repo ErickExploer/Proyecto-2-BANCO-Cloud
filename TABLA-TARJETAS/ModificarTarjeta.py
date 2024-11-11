@@ -1,46 +1,49 @@
 import boto3
-from datetime import datetime
 import json
 
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
-
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    cuenta_id = event['pathParameters']['cuenta_id']
-    tarjeta_id = event['pathParameters']['tarjeta_id']
-    updated_data = json.loads(event['body'])
-    
+    if isinstance(event['body'], str):
+        body = json.loads(event['body'])
+    else:
+        body = event['body']
+
+    usuario_id = body.get('usuario_id')
+    cuenta_id = body.get('cuenta_id')
+    tarjeta_id = body.get('tarjeta_id')
+    tarjeta_datos = body.get('tarjeta_datos', {})
+
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TARJETAS')
-    response = table.update_item(
-        Key={
-            'cuenta_id': cuenta_id,
-            'tarjeta_id': tarjeta_id
-        },
-        UpdateExpression="set limite=:l, saldo_disponible=:sd, estado=:e, fecha_emision=:fe, fecha_vencimiento=:fv, cvv=:cv",
-        ExpressionAttributeValues={
-            ':l': updated_data['limite'],
-            ':sd': updated_data['saldo_disponible'],
-            ':e': updated_data['estado'],
-            ':fe': updated_data['fecha_emision'],
-            ':fv': updated_data['fecha_vencimiento'],
-            ':cv': updated_data['cvv']
-        },
-        ReturnValues="UPDATED_NEW"
+    cuentas_table = dynamodb.Table('TABLA-CUENTA')
+    tarjetas_table = dynamodb.Table('TABLA-TARJETAS')
+
+    cuenta_response = cuentas_table.get_item(Key={'usuario_id': usuario_id, 'cuenta_id': cuenta_id})
+    if 'Item' not in cuenta_response:
+        return {
+            'statusCode': 400,
+            'body': 'Error: Cuenta no encontrada para este usuario.'
+        }
+
+    tarjeta_response = tarjetas_table.get_item(Key={'cuenta_id': cuenta_id, 'tarjeta_id': tarjeta_id})
+    if 'Item' not in tarjeta_response:
+        return {
+            'statusCode': 404,
+            'body': 'Error: Tarjeta no encontrada.'
+        }
+
+    update_expression = "set "
+    expression_attribute_values = {}
+    for key, value in tarjeta_datos.items():
+        update_expression += f"{key} = :{key}, "
+        expression_attribute_values[f":{key}"] = value
+    update_expression = update_expression.rstrip(", ")
+
+    tarjetas_table.update_item(
+        Key={'cuenta_id': cuenta_id, 'tarjeta_id': tarjeta_id},
+        UpdateExpression=update_expression,
+        ExpressionAttributeValues=expression_attribute_values
     )
-    
+
     return {
         'statusCode': 200,
-        'body': 'Tarjeta modificada exitosamente'
+        'body': f'Tarjeta {tarjeta_id} modificada exitosamente'
     }

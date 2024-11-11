@@ -1,41 +1,52 @@
 import boto3
-import uuid
+import json
 from datetime import datetime
 
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
-
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    cuenta_id = event['cuenta_id']
-    tarjeta_id = str(uuid.uuid4())
-    data = event['body']
-    
+    if isinstance(event['body'], str):
+        body = json.loads(event['body'])
+    else:
+        body = event['body']
+
+    usuario_id = body.get('usuario_id')
+    cuenta_id = body.get('cuenta_id')
+    tarjeta_datos = body.get('tarjeta_datos', {})
+
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TARJETAS')
-    table.put_item(
-        Item={
-            'cuenta_id': cuenta_id,
-            'tarjeta_id': tarjeta_id,
-            'limite': data['limite'],
-            'saldo_disponible': data['saldo_disponible'],
-            'estado': data['estado'],
-            'fecha_emision': data['fecha_emision'],
-            'fecha_vencimiento': data['fecha_vencimiento'],
-            'cvv': data['cvv']
+    usuarios_table = dynamodb.Table('TABLA-USUARIOS')
+    cuentas_table = dynamodb.Table('TABLA-CUENTA')
+    tarjetas_table = dynamodb.Table('TABLA-TARJETAS')
+
+    user_response = usuarios_table.get_item(Key={'usuario_id': usuario_id})
+    if 'Item' not in user_response:
+        return {
+            'statusCode': 400,
+            'body': 'Error: Usuario no encontrado.'
         }
-    )
-    
+
+    cuenta_response = cuentas_table.get_item(Key={'usuario_id': usuario_id, 'cuenta_id': cuenta_id})
+    if 'Item' not in cuenta_response:
+        return {
+            'statusCode': 400,
+            'body': 'Error: Cuenta no encontrada para este usuario.'
+        }
+
+    tarjetas_count = tarjetas_table.query(
+        KeyConditionExpression=boto3.dynamodb.conditions.Key('cuenta_id').eq(cuenta_id)
+    )['Count']
+    tarjeta_id = f"TARJETA-{tarjetas_count + 1}"
+
+    tarjeta_item = {
+        'cuenta_id': cuenta_id,
+        'tarjeta_id': tarjeta_id,
+        'estado': tarjeta_datos.get('estado', 'activa'),
+        'fecha_emision': datetime.now().strftime('%Y-%m-%d'),
+        'fecha_vencimiento': (datetime.now().replace(year=datetime.now().year + 3)).strftime('%Y-%m-%d'),
+        'cvv': str(datetime.now().microsecond % 1000).zfill(3)
+    }
+
+    tarjetas_table.put_item(Item=tarjeta_item)
+
     return {
         'statusCode': 200,
         'body': f'Tarjeta creada exitosamente con ID: {tarjeta_id}'

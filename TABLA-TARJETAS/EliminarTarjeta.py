@@ -1,34 +1,37 @@
 import boto3
-from datetime import datetime
-
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
+import json
 
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    cuenta_id = event['pathParameters']['cuenta_id']
-    tarjeta_id = event['pathParameters']['tarjeta_id']
-    
+    if isinstance(event['body'], str):
+        body = json.loads(event['body'])
+    else:
+        body = event['body']
+
+    usuario_id = body.get('usuario_id')
+    cuenta_id = body.get('cuenta_id')
+    tarjeta_id = body.get('tarjeta_id')
+
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TARJETAS')
-    table.delete_item(
-        Key={
-            'cuenta_id': cuenta_id,
-            'tarjeta_id': tarjeta_id
+    cuentas_table = dynamodb.Table('TABLA-CUENTA')
+    tarjetas_table = dynamodb.Table('TABLA-TARJETAS')
+
+    cuenta_response = cuentas_table.get_item(Key={'usuario_id': usuario_id, 'cuenta_id': cuenta_id})
+    if 'Item' not in cuenta_response:
+        return {
+            'statusCode': 400,
+            'body': 'Error: Cuenta no encontrada para este usuario.'
         }
-    )
-    
+
+    tarjeta_response = tarjetas_table.get_item(Key={'cuenta_id': cuenta_id, 'tarjeta_id': tarjeta_id})
+    if 'Item' not in tarjeta_response:
+        return {
+            'statusCode': 404,
+            'body': 'Error: Tarjeta no encontrada.'
+        }
+
+    tarjetas_table.delete_item(Key={'cuenta_id': cuenta_id, 'tarjeta_id': tarjeta_id})
+
     return {
         'statusCode': 200,
-        'body': 'Tarjeta eliminada exitosamente'
+        'body': f'Tarjeta {tarjeta_id} eliminada exitosamente'
     }

@@ -1,40 +1,42 @@
 import boto3
-import uuid
-from datetime import datetime
-
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
+import json
+from decimal import Decimal
 
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    usuario_id = event['usuario_id']
-    cuenta_id = str(uuid.uuid4())
-    saldo = event['saldo']
-    nombre_cuenta = event['nombre_cuenta']
-    interes = event.get('interes', 0.0)
-    
+    body = event.get('body')
+    if isinstance(body, str):
+        body = json.loads(body)
+
+    usuario_id = body['usuario_id']
+    cuenta_datos = body['cuenta_datos']
+
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-CUENTA')
-    table.put_item(
+    usuarios_table = dynamodb.Table('TABLA-USUARIOS')
+    cuentas_table = dynamodb.Table('TABLA-CUENTA')
+
+    response = usuarios_table.get_item(Key={'usuario_id': usuario_id})
+    if 'Item' not in response:
+        return {
+            'statusCode': 400,
+            'body': 'Usuario no existe'
+        }
+
+    cuentas_response = cuentas_table.query(
+        KeyConditionExpression=boto3.dynamodb.conditions.Key('usuario_id').eq(usuario_id)
+    )
+    cuenta_numero = cuentas_response['Count'] + 1
+    cuenta_id = f"CUENTA-{cuenta_numero}"
+
+    cuentas_table.put_item(
         Item={
             'usuario_id': usuario_id,
             'cuenta_id': cuenta_id,
-            'saldo': saldo,
-            'nombre_cuenta': nombre_cuenta,
-            'interes': interes
+            'saldo': Decimal(str(cuenta_datos['saldo'])),
+            'nombre_cuenta': cuenta_datos['nombre_cuenta'],
+            'interes': Decimal(str(cuenta_datos['interes']))
         }
     )
-    
+
     return {
         'statusCode': 200,
         'body': f'Cuenta creada exitosamente con ID: {cuenta_id}'

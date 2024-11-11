@@ -1,34 +1,57 @@
 import boto3
-from datetime import datetime
-
-def validate_token(token):
-    dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table('TABLA-TOKENS_ACCESO')
-    response = table.get_item(Key={'token': token})
-    if 'Item' not in response:
-        return False
-    expires = response['Item']['expires']
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    return now <= expires
+import json
 
 def lambda_handler(event, context):
-    token = event['headers'].get('Authorization')
-    if not validate_token(token):
-        return {'statusCode': 403, 'body': 'Acceso No Autorizado'}
-    
-    usuario_id = event['pathParameters']['usuario_id']
-    cuenta_id = event['pathParameters']['cuenta_id']
-    
+    body = event.get('body')
+    if isinstance(body, str):
+        body = json.loads(body)
+
+    usuario_id = body.get('usuario_id')
+    cuenta_id = body.get('cuenta_id')
+
+    if not usuario_id or not cuenta_id:
+        return {
+            'statusCode': 400,
+            'body': 'Solicitud inválida. Faltan usuario_id o cuenta_id.'
+        }
+
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('TABLA-CUENTA')
-    table.delete_item(
-        Key={
-            'usuario_id': usuario_id,
-            'cuenta_id': cuenta_id
+
+    try:
+        existing_account = table.get_item(
+            Key={
+                'usuario_id': usuario_id,
+                'cuenta_id': cuenta_id
+            }
+        )
+        if 'Item' not in existing_account:
+            return {
+                'statusCode': 404,
+                'body': f'La cuenta con ID {cuenta_id} para el usuario {usuario_id} no existe.'
+            }
+
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': f'Error al verificar la existencia de la cuenta: {str(e)}'
         }
-    )
-    
-    return {
-        'statusCode': 200,
-        'body': f'Cuenta {cuenta_id} eliminada exitosamente'
-    }
+
+    try:
+        response = table.delete_item(
+            Key={
+                'usuario_id': usuario_id,
+                'cuenta_id': cuenta_id
+            }
+        )
+        
+        return {
+            'statusCode': 200,
+            'body': f'Cuenta con ID {cuenta_id} eliminada exitosamente para el usuario {usuario_id}.'
+        }
+
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'body': f'Error al eliminar la cuenta: {str(e)}'
+        }
