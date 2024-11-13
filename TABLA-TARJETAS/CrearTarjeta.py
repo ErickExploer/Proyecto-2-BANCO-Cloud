@@ -1,6 +1,7 @@
 import boto3
 import json
 from datetime import datetime
+from decimal import Decimal
 
 def lambda_handler(event, context):
     if isinstance(event['body'], str):
@@ -31,6 +32,13 @@ def lambda_handler(event, context):
             'body': 'Error: Cuenta no encontrada para este usuario.'
         }
 
+    estado = tarjeta_datos.get('estado', 'activa')
+    if estado not in ['activa', 'bloqueada']:
+        return {
+            'statusCode': 400,
+            'body': 'Error: Estado inválido. Solo se permite activa o bloqueada.'
+        }
+
     tarjetas_count = tarjetas_table.query(
         KeyConditionExpression=boto3.dynamodb.conditions.Key('cuenta_id').eq(cuenta_id)
     )['Count']
@@ -39,7 +47,8 @@ def lambda_handler(event, context):
     tarjeta_item = {
         'cuenta_id': cuenta_id,
         'tarjeta_id': tarjeta_id,
-        'estado': tarjeta_datos.get('estado', 'activa'),
+        'saldo_disponible': Decimal('0.00'),
+        'estado': estado,
         'fecha_emision': datetime.now().strftime('%Y-%m-%d'),
         'fecha_vencimiento': (datetime.now().replace(year=datetime.now().year + 3)).strftime('%Y-%m-%d'),
         'cvv': str(datetime.now().microsecond % 1000).zfill(3)

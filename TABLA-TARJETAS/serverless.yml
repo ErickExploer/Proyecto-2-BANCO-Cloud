@@ -52,6 +52,22 @@ functions:
           method: delete
           cors: true
           integration: lambda
+  RecargarTarjeta:
+    handler: RecargarTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/recargar
+          method: post
+          cors: true
+          integration: lambda
+  RetirarTarjeta:
+    handler: RetirarTarjeta.lambda_handler
+    events:
+      - http:
+          path: /tarjetas/retirar
+          method: post
+          cors: true
+          integration: lambda
 
 resources:
   Resources:
