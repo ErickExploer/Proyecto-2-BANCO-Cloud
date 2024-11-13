@@ -1,0 +1,99 @@
+org: antoniocot
+service: api-pagos
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 1024
+  timeout: 30
+  iam:
+    role: arn:aws:iam::316129865556:role/LabRole
+  environment:
+    PAGOS_TABLE: TABLA-PAGOS
+    TARJETAS_TABLE: TABLA-TARJETAS
+
+functions:
+  CrearPagoDeuda:
+    handler: CrearPagoDeuda.lambda_handler
+    events:
+      - http:
+          path: /pago/deuda
+          method: post
+          cors: true
+
+  CrearPagoServicio:
+    handler: CrearPagoServicio.lambda_handler
+    events:
+      - http:
+          path: /pago/servicio
+          method: post
+          cors: true
+
+  RealizarPago:
+    handler: RealizarPago.lambda_handler
+    events:
+      - http:
+          path: /pago/realizar
+          method: post
+          cors: true
+
+  ObtenerPago:
+    handler: ObtenerPago.lambda_handler
+    events:
+      - http:
+          path: /pago/obtener
+          method: get
+          cors: true
+
+  ListarPagos:
+    handler: ListarPagos.lambda_handler
+    events:
+      - http:
+          path: /pago/listar
+          method: get
+          cors: true
+          
+  ActualizarPago:
+    handler: ActualizarPago.lambda_handler
+    events:
+      - http:
+          path: /pago/actualizar
+          method: put
+          cors: true
+
+  EliminarPago:
+    handler: EliminarPago.lambda_handler
+    events:
+      - http:
+          path: /pago/eliminar
+          method: delete
+          cors: true
+
+resources:
+  Resources:
+    PagosTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.PAGOS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: usuario_id
+            AttributeType: S
+          - AttributeName: pago_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: usuario_id
+            KeyType: HASH
+          - AttributeName: pago_id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: TipoIndex
+            KeySchema:
+              - AttributeName: usuario_id
+                KeyType: HASH
+              - AttributeName: tipo
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES

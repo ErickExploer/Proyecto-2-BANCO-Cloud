@@ -1,0 +1,83 @@
+org: antoniocot
+service: api-transacciones
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 1024
+  timeout: 30
+  iam:
+    role: arn:aws:iam::316129865556:role/LabRole
+  environment:
+    TRANSACTION_TABLE: TABLA-TRANSACCION
+
+functions:
+  CrearTransaccion:
+    handler: CrearTransaccion.lambda_handler
+    events:
+      - http:
+          path: /transaccion/crear
+          method: post
+          cors: true
+
+  EliminarTransaccion:
+    handler: EliminarTransaccion.lambda_handler
+    events:
+      - http:
+          path: /transaccion/eliminar
+          method: delete
+          cors: true
+
+  ObtenerTransaccion:
+    handler: ObtenerTransaccion.lambda_handler
+    events:
+      - http:
+          path: /transaccion/obtener
+          method: post
+          cors: true
+
+  ListarTransacciones:
+    handler: ListarTransacciones.lambda_handler
+    events:
+      - http:
+          path: /transaccion/listar
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    TransaccionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.TRANSACTION_TABLE}
+        AttributeDefinitions:
+          - AttributeName: cuenta_origen
+            AttributeType: S
+          - AttributeName: transaccion_id
+            AttributeType: S
+          - AttributeName: cuenta_destino
+            AttributeType: S
+          - AttributeName: monto
+            AttributeType: N
+        KeySchema:
+          - AttributeName: cuenta_origen
+            KeyType: HASH
+          - AttributeName: transaccion_id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: CuentaDestinoIndex
+            KeySchema:
+              - AttributeName: cuenta_destino
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        LocalSecondaryIndexes:
+          - IndexName: MontoIndex
+            KeySchema:
+              - AttributeName: cuenta_origen
+                KeyType: HASH
+              - AttributeName: monto
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL

@@ -1,0 +1,100 @@
+org: antoniocot
+service: api-soporte
+
+provider:
+  name: aws
+  runtime: python3.12
+  memorySize: 1024
+  timeout: 30
+  iam:
+    role: arn:aws:iam::316129865556:role/LabRole
+  environment:
+    SOPORTE_TABLE: TABLA-SOPORTE
+
+functions:
+  CrearSolicitud:
+    handler: CrearSolicitud.lambda_handler
+    events:
+      - http:
+          path: /soporte/crear
+          method: post
+          cors: true
+
+  EliminarSolicitud:
+    handler: EliminarSolicitud.lambda_handler
+    events:
+      - http:
+          path: /soporte/eliminar
+          method: delete
+          cors: true
+
+  EditarSolicitud:
+    handler: EditarSolicitud.lambda_handler
+    events:
+      - http:
+          path: /soporte/editar
+          method: put
+          cors: true
+
+  ObtenerSolicitud:
+    handler: ObtenerSolicitud.lambda_handler
+    events:
+      - http:
+          path: /soporte/obtener
+          method: post
+          cors: true
+
+  ListarSolicitudes:
+    handler: ListarSolicitudes.lambda_handler
+    events:
+      - http:
+          path: /soporte/listar
+          method: get
+          cors: true
+
+  ListarSolicitudesPorUsuario:
+    handler: ListarSolicitudesPorUsuario.lambda_handler
+    events:
+      - http:
+          path: /soporte/listar-usuario
+          method: post
+          cors: true
+
+  ResponderSolicitud:
+    handler: ResponderSolicitud.lambda_handler
+    events:
+      - http:
+          path: /soporte/responder
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    SoporteTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.SOPORTE_TABLE}
+        AttributeDefinitions:
+          - AttributeName: usuario_id
+            AttributeType: S
+          - AttributeName: ticket_id
+            AttributeType: S
+          - AttributeName: estado
+            AttributeType: S
+          - AttributeName: fecha
+            AttributeType: S
+        KeySchema:
+          - AttributeName: usuario_id
+            KeyType: HASH
+          - AttributeName: ticket_id
+            KeyType: RANGE
+        BillingMode: PAY_PER_REQUEST
+        GlobalSecondaryIndexes:
+          - IndexName: estado-index
+            KeySchema:
+              - AttributeName: estado
+                KeyType: HASH
+              - AttributeName: fecha
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
