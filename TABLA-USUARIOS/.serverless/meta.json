@@ -1,0 +1,631 @@
+{
+  "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-USUARIOS": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.10",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "self": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "antoniocot",
+            "service": "api-usuarios",
+            "provider": {
+              "name": "aws",
+              "runtime": "python3.12",
+              "memorySize": 1024,
+              "timeout": 30,
+              "iam": {
+                "role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "region": "us-east-1",
+              "profile": "default",
+              "environment": {
+                "TABLE_NAME": "TABLA-USUARIOS"
+              },
+              "stage": "dev",
+              "versionFunctions": true
+            },
+            "functions": {
+              "CrearUsuario": {
+                "handler": "CrearUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/crear",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-CrearUsuario"
+              },
+              "ListarUsuarios": {
+                "handler": "ListarUsuarios.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/listar",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-ListarUsuarios"
+              },
+              "BuscarUsuario": {
+                "handler": "BuscarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/buscar",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-BuscarUsuario"
+              },
+              "EliminarUsuario": {
+                "handler": "EliminarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/eliminar",
+                      "method": "delete",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-EliminarUsuario"
+              },
+              "ModificarUsuario": {
+                "handler": "ModificarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/modificar",
+                      "method": "put",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-ModificarUsuario"
+              },
+              "LoginUsuario": {
+                "handler": "LoginUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/login",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-LoginUsuario"
+              }
+            },
+            "resources": {
+              "Resources": {
+                "UsuariosTable": {
+                  "Type": "AWS::DynamoDB::Table",
+                  "Properties": {
+                    "TableName": "TABLA-USUARIOS",
+                    "AttributeDefinitions": [
+                      {
+                        "AttributeName": "usuario_id",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "email",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "dni",
+                        "AttributeType": "S"
+                      }
+                    ],
+                    "KeySchema": [
+                      {
+                        "AttributeName": "usuario_id",
+                        "KeyType": "HASH"
+                      }
+                    ],
+                    "BillingMode": "PAY_PER_REQUEST",
+                    "GlobalSecondaryIndexes": [
+                      {
+                        "IndexName": "email-index",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "email",
+                            "KeyType": "HASH"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      },
+                      {
+                        "IndexName": "dni-index",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "dni",
+                            "KeyType": "HASH"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "configFileDirPath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-USUARIOS",
+          "config": {
+            "type": "self"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:self",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "sls": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "antoniocot",
+            "service": "api-usuarios",
+            "provider": {
+              "name": "aws",
+              "runtime": "python3.12",
+              "memorySize": 1024,
+              "timeout": 30,
+              "iam": {
+                "role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "region": "us-east-1",
+              "profile": "default",
+              "environment": {
+                "TABLE_NAME": "TABLA-USUARIOS"
+              },
+              "stage": "dev",
+              "versionFunctions": true
+            },
+            "functions": {
+              "CrearUsuario": {
+                "handler": "CrearUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/crear",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-CrearUsuario"
+              },
+              "ListarUsuarios": {
+                "handler": "ListarUsuarios.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/listar",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-ListarUsuarios"
+              },
+              "BuscarUsuario": {
+                "handler": "BuscarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/buscar",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-BuscarUsuario"
+              },
+              "EliminarUsuario": {
+                "handler": "EliminarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/eliminar",
+                      "method": "delete",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-EliminarUsuario"
+              },
+              "ModificarUsuario": {
+                "handler": "ModificarUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/modificar",
+                      "method": "put",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-ModificarUsuario"
+              },
+              "LoginUsuario": {
+                "handler": "LoginUsuario.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "/usuarios/login",
+                      "method": "post",
+                      "cors": true,
+                      "integration": "lambda"
+                    }
+                  }
+                ],
+                "name": "api-usuarios-dev-LoginUsuario"
+              }
+            },
+            "resources": {
+              "Resources": {
+                "UsuariosTable": {
+                  "Type": "AWS::DynamoDB::Table",
+                  "Properties": {
+                    "TableName": "TABLA-USUARIOS",
+                    "AttributeDefinitions": [
+                      {
+                        "AttributeName": "usuario_id",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "email",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "dni",
+                        "AttributeType": "S"
+                      }
+                    ],
+                    "KeySchema": [
+                      {
+                        "AttributeName": "usuario_id",
+                        "KeyType": "HASH"
+                      }
+                    ],
+                    "BillingMode": "PAY_PER_REQUEST",
+                    "GlobalSecondaryIndexes": [
+                      {
+                        "IndexName": "email-index",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "email",
+                            "KeyType": "HASH"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      },
+                      {
+                        "IndexName": "dni-index",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "dni",
+                            "KeyType": "HASH"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "configFileDirPath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-USUARIOS",
+          "config": {
+            "type": "sls"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:sls",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-USUARIOS",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "antoniocot",
+      "service": "api-usuarios",
+      "provider": {
+        "name": "aws",
+        "runtime": "python3.12",
+        "memorySize": 1024,
+        "timeout": 30,
+        "iam": {
+          "role": "arn:aws:iam::316129865556:role/LabRole"
+        },
+        "region": "us-east-1",
+        "profile": "default",
+        "environment": {
+          "TABLE_NAME": "TABLA-USUARIOS"
+        },
+        "stage": "dev",
+        "versionFunctions": true
+      },
+      "functions": {
+        "CrearUsuario": {
+          "handler": "CrearUsuario.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/crear",
+                "method": "post",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-CrearUsuario"
+        },
+        "ListarUsuarios": {
+          "handler": "ListarUsuarios.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/listar",
+                "method": "post",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-ListarUsuarios"
+        },
+        "BuscarUsuario": {
+          "handler": "BuscarUsuario.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/buscar",
+                "method": "post",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-BuscarUsuario"
+        },
+        "EliminarUsuario": {
+          "handler": "EliminarUsuario.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/eliminar",
+                "method": "delete",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-EliminarUsuario"
+        },
+        "ModificarUsuario": {
+          "handler": "ModificarUsuario.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/modificar",
+                "method": "put",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-ModificarUsuario"
+        },
+        "LoginUsuario": {
+          "handler": "LoginUsuario.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "/usuarios/login",
+                "method": "post",
+                "cors": true,
+                "integration": "lambda"
+              }
+            }
+          ],
+          "name": "api-usuarios-dev-LoginUsuario"
+        }
+      },
+      "resources": {
+        "Resources": {
+          "UsuariosTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "TABLA-USUARIOS",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "usuario_id",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "email",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "dni",
+                  "AttributeType": "S"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "usuario_id",
+                  "KeyType": "HASH"
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST",
+              "GlobalSecondaryIndexes": [
+                {
+                  "IndexName": "email-index",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "email",
+                      "KeyType": "HASH"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  }
+                },
+                {
+                  "IndexName": "dni-index",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "dni",
+                      "KeyType": "HASH"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "serviceRawFile": "org: antoniocot\nservice: api-usuarios\n\nprovider:\n  name: aws\n  runtime: python3.12\n  memorySize: 1024\n  timeout: 30\n  iam:\n    role: arn:aws:iam::316129865556:role/LabRole\n  region: us-east-1\n  profile: default\n  environment:\n    TABLE_NAME: TABLA-USUARIOS\n\nfunctions:\n  CrearUsuario:\n    handler: CrearUsuario.lambda_handler\n    events:\n      - http:\n          path: /usuarios/crear\n          method: post\n          cors: true\n          integration: lambda\n\n  ListarUsuarios:\n    handler: ListarUsuarios.lambda_handler\n    events:\n      - http:\n          path: /usuarios/listar\n          method: post\n          cors: true\n          integration: lambda\n\n  BuscarUsuario:\n    handler: BuscarUsuario.lambda_handler\n    events:\n      - http:\n          path: /usuarios/buscar\n          method: post\n          cors: true\n          integration: lambda\n\n  EliminarUsuario:\n    handler: EliminarUsuario.lambda_handler\n    events:\n      - http:\n          path: /usuarios/eliminar\n          method: delete\n          cors: true\n          integration: lambda\n\n  ModificarUsuario:\n    handler: ModificarUsuario.lambda_handler\n    events:\n      - http:\n          path: /usuarios/modificar\n          method: put\n          cors: true\n          integration: lambda\n\n  LoginUsuario:\n    handler: LoginUsuario.lambda_handler\n    events:\n      - http:\n          path: /usuarios/login\n          method: post\n          cors: true\n          integration: lambda\n\nresources:\n  Resources:\n    UsuariosTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: ${self:provider.environment.TABLE_NAME}\n        AttributeDefinitions:\n          - AttributeName: usuario_id\n            AttributeType: S\n          - AttributeName: email\n            AttributeType: S\n          - AttributeName: dni\n            AttributeType: S\n        KeySchema:\n          - AttributeName: usuario_id\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n        GlobalSecondaryIndexes:\n          - IndexName: email-index\n            KeySchema:\n              - AttributeName: email\n                KeyType: HASH\n            Projection:\n              ProjectionType: ALL\n          - IndexName: dni-index\n            KeySchema:\n              - AttributeName: dni\n                KeyType: HASH\n            Projection:\n              ProjectionType: ALL\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": {
+      "message": "Access denied when accessing /serverless-framework/state/s3-bucket SSM parameter and serverless-framework-state-8490b9fe-bfdb-41c6-807c-0245b403ca25 S3 bucket. Please check your permissions and try again. You have the following options:\n• Ensure you have permission to create SSM and S3 resources.\n• Use the \"state\" field to specify an existing S3 bucket.\n• Manually create the S3 bucket and SSM parameter.\n\nFor more details, please refer to the documentation: https://slss.io/compose-state\n\nOriginal error: An error occurred while fetching the SSM parameter \"/serverless-framework/state/s3-bucket\": User: arn:aws:sts::316129865556:assumed-role/voclabs/user3306460=Cotera_Inche,_Antonio_ is not authorized to perform: ssm:GetParameter on resource: arn:aws:ssm:us-east-1:316129865556:parameter/serverless-framework/state/s3-bucket with an explicit deny in an identity-based policy",
+      "code": "COMPOSE_STATE_INSUFFICIENT_PERMISSIONS"
+    },
+    "params": {},
+    "machineId": "1a17178cb52deea2b46ae6a73b4b98d9",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "2e99066c-18f4-402b-a9fe-2e7dad52eb58",
+    "orgName": "antoniocot",
+    "userId": "ybR6NRF6kxQTq0WCR2",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "antoniocot",
+    "subscription": null,
+    "userEmail": "antonio.cotera@utec.edu.pe",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "316129865556",
+    "projectType": "traditional",
+    "versionSf": "4.4.10",
+    "serviceProviderAwsCfStackName": "api-usuarios-dev",
+    "serviceUniqueId": null,
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:316129865556:stack/api-usuarios-dev/dd855eb0-9f75-11ef-b722-12e5c6ba7815",
+    "serviceProviderAwsCfStackCreated": "2024-11-10T15:10:04.947Z",
+    "serviceProviderAwsCfStackUpdated": "2024-11-14T14:23:01.278Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "BuscarUsuarioLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-BuscarUsuario:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-BuscarUsuarioLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ModificarUsuarioLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-ModificarUsuario:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-ModificarUsuarioLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "LoginUsuarioLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-LoginUsuario:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-LoginUsuarioLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "CrearUsuarioLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-CrearUsuario:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-CrearUsuarioLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ListarUsuariosLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-ListarUsuarios:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-ListarUsuariosLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "EliminarUsuarioLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-usuarios-dev-EliminarUsuario:4",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-usuarios-dev-EliminarUsuarioLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ServiceEndpoint",
+        "OutputValue": "https://ot0i7774d1.execute-api.us-east-1.amazonaws.com/dev",
+        "Description": "URL of the service endpoint",
+        "ExportName": "sls-api-usuarios-dev-ServiceEndpoint"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+        "ExportName": "sls-api-usuarios-dev-ServerlessDeploymentBucketName"
+      }
+    ]
+  }
+}

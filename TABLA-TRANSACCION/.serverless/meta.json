@@ -1,0 +1,2395 @@
+{
+  "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TRANSACCION": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.7",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "self": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "antoniocot",
+            "service": "api-transacciones",
+            "provider": {
+              "name": "aws",
+              "runtime": "python3.12",
+              "memorySize": 1024,
+              "timeout": 30,
+              "iam": {
+                "role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "environment": {
+                "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+              },
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "CrearTransaccionLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/api-transacciones-dev-CrearTransaccion"
+                    }
+                  },
+                  "EliminarTransaccionLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/api-transacciones-dev-EliminarTransaccion"
+                    }
+                  },
+                  "ObtenerTransaccionLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/api-transacciones-dev-ObtenerTransaccion"
+                    }
+                  },
+                  "ListarTransaccionesLogGroup": {
+                    "Type": "AWS::Logs::LogGroup",
+                    "Properties": {
+                      "LogGroupName": "/aws/lambda/api-transacciones-dev-ListarTransacciones"
+                    }
+                  },
+                  "CrearTransaccionLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                        "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                      },
+                      "Handler": "CrearTransaccion.lambda_handler",
+                      "Runtime": "python3.12",
+                      "FunctionName": "api-transacciones-dev-CrearTransaccion",
+                      "MemorySize": 1024,
+                      "Timeout": 30,
+                      "Environment": {
+                        "Variables": {
+                          "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                        }
+                      },
+                      "Role": "arn:aws:iam::316129865556:role/LabRole"
+                    },
+                    "DependsOn": [
+                      "CrearTransaccionLogGroup"
+                    ]
+                  },
+                  "EliminarTransaccionLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                        "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                      },
+                      "Handler": "EliminarTransaccion.lambda_handler",
+                      "Runtime": "python3.12",
+                      "FunctionName": "api-transacciones-dev-EliminarTransaccion",
+                      "MemorySize": 1024,
+                      "Timeout": 30,
+                      "Environment": {
+                        "Variables": {
+                          "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                        }
+                      },
+                      "Role": "arn:aws:iam::316129865556:role/LabRole"
+                    },
+                    "DependsOn": [
+                      "EliminarTransaccionLogGroup"
+                    ]
+                  },
+                  "ObtenerTransaccionLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                        "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                      },
+                      "Handler": "ObtenerTransaccion.lambda_handler",
+                      "Runtime": "python3.12",
+                      "FunctionName": "api-transacciones-dev-ObtenerTransaccion",
+                      "MemorySize": 1024,
+                      "Timeout": 30,
+                      "Environment": {
+                        "Variables": {
+                          "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                        }
+                      },
+                      "Role": "arn:aws:iam::316129865556:role/LabRole"
+                    },
+                    "DependsOn": [
+                      "ObtenerTransaccionLogGroup"
+                    ]
+                  },
+                  "ListarTransaccionesLambdaFunction": {
+                    "Type": "AWS::Lambda::Function",
+                    "Properties": {
+                      "Code": {
+                        "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                        "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                      },
+                      "Handler": "ListarTransacciones.lambda_handler",
+                      "Runtime": "python3.12",
+                      "FunctionName": "api-transacciones-dev-ListarTransacciones",
+                      "MemorySize": 1024,
+                      "Timeout": 30,
+                      "Environment": {
+                        "Variables": {
+                          "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                        }
+                      },
+                      "Role": "arn:aws:iam::316129865556:role/LabRole"
+                    },
+                    "DependsOn": [
+                      "ListarTransaccionesLogGroup"
+                    ]
+                  },
+                  "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "CrearTransaccionLambdaFunction"
+                      },
+                      "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+                    }
+                  },
+                  "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "EliminarTransaccionLambdaFunction"
+                      },
+                      "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+                    }
+                  },
+                  "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "ObtenerTransaccionLambdaFunction"
+                      },
+                      "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+                    }
+                  },
+                  "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc": {
+                    "Type": "AWS::Lambda::Version",
+                    "DeletionPolicy": "Retain",
+                    "Properties": {
+                      "FunctionName": {
+                        "Ref": "ListarTransaccionesLambdaFunction"
+                      },
+                      "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+                    }
+                  },
+                  "ApiGatewayRestApi": {
+                    "Type": "AWS::ApiGateway::RestApi",
+                    "Properties": {
+                      "Name": "dev-api-transacciones",
+                      "EndpointConfiguration": {
+                        "Types": [
+                          "EDGE"
+                        ]
+                      },
+                      "Policy": ""
+                    }
+                  },
+                  "ApiGatewayResourceTransaccion": {
+                    "Type": "AWS::ApiGateway::Resource",
+                    "Properties": {
+                      "ParentId": {
+                        "Fn::GetAtt": [
+                          "ApiGatewayRestApi",
+                          "RootResourceId"
+                        ]
+                      },
+                      "PathPart": "transaccion",
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayResourceTransaccionCrear": {
+                    "Type": "AWS::ApiGateway::Resource",
+                    "Properties": {
+                      "ParentId": {
+                        "Ref": "ApiGatewayResourceTransaccion"
+                      },
+                      "PathPart": "crear",
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayResourceTransaccionEliminar": {
+                    "Type": "AWS::ApiGateway::Resource",
+                    "Properties": {
+                      "ParentId": {
+                        "Ref": "ApiGatewayResourceTransaccion"
+                      },
+                      "PathPart": "eliminar",
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayResourceTransaccionObtener": {
+                    "Type": "AWS::ApiGateway::Resource",
+                    "Properties": {
+                      "ParentId": {
+                        "Ref": "ApiGatewayResourceTransaccion"
+                      },
+                      "PathPart": "obtener",
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayResourceTransaccionListar": {
+                    "Type": "AWS::ApiGateway::Resource",
+                    "Properties": {
+                      "ParentId": {
+                        "Ref": "ApiGatewayResourceTransaccion"
+                      },
+                      "PathPart": "listar",
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayMethodTransaccionCrearOptions": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "AuthorizationType": "NONE",
+                      "HttpMethod": "OPTIONS",
+                      "MethodResponses": [
+                        {
+                          "StatusCode": "200",
+                          "ResponseParameters": {
+                            "method.response.header.Access-Control-Allow-Origin": true,
+                            "method.response.header.Access-Control-Allow-Headers": true,
+                            "method.response.header.Access-Control-Allow-Methods": true
+                          },
+                          "ResponseModels": {}
+                        }
+                      ],
+                      "RequestParameters": {},
+                      "Integration": {
+                        "Type": "MOCK",
+                        "RequestTemplates": {
+                          "application/json": "{statusCode:200}"
+                        },
+                        "ContentHandling": "CONVERT_TO_TEXT",
+                        "IntegrationResponses": [
+                          {
+                            "StatusCode": "200",
+                            "ResponseParameters": {
+                              "method.response.header.Access-Control-Allow-Origin": "'*'",
+                              "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                              "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                            },
+                            "ResponseTemplates": {
+                              "application/json": ""
+                            }
+                          }
+                        ]
+                      },
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionCrear"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayMethodTransaccionEliminarOptions": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "AuthorizationType": "NONE",
+                      "HttpMethod": "OPTIONS",
+                      "MethodResponses": [
+                        {
+                          "StatusCode": "200",
+                          "ResponseParameters": {
+                            "method.response.header.Access-Control-Allow-Origin": true,
+                            "method.response.header.Access-Control-Allow-Headers": true,
+                            "method.response.header.Access-Control-Allow-Methods": true
+                          },
+                          "ResponseModels": {}
+                        }
+                      ],
+                      "RequestParameters": {},
+                      "Integration": {
+                        "Type": "MOCK",
+                        "RequestTemplates": {
+                          "application/json": "{statusCode:200}"
+                        },
+                        "ContentHandling": "CONVERT_TO_TEXT",
+                        "IntegrationResponses": [
+                          {
+                            "StatusCode": "200",
+                            "ResponseParameters": {
+                              "method.response.header.Access-Control-Allow-Origin": "'*'",
+                              "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                              "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE'"
+                            },
+                            "ResponseTemplates": {
+                              "application/json": ""
+                            }
+                          }
+                        ]
+                      },
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionEliminar"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayMethodTransaccionObtenerOptions": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "AuthorizationType": "NONE",
+                      "HttpMethod": "OPTIONS",
+                      "MethodResponses": [
+                        {
+                          "StatusCode": "200",
+                          "ResponseParameters": {
+                            "method.response.header.Access-Control-Allow-Origin": true,
+                            "method.response.header.Access-Control-Allow-Headers": true,
+                            "method.response.header.Access-Control-Allow-Methods": true
+                          },
+                          "ResponseModels": {}
+                        }
+                      ],
+                      "RequestParameters": {},
+                      "Integration": {
+                        "Type": "MOCK",
+                        "RequestTemplates": {
+                          "application/json": "{statusCode:200}"
+                        },
+                        "ContentHandling": "CONVERT_TO_TEXT",
+                        "IntegrationResponses": [
+                          {
+                            "StatusCode": "200",
+                            "ResponseParameters": {
+                              "method.response.header.Access-Control-Allow-Origin": "'*'",
+                              "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                              "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                            },
+                            "ResponseTemplates": {
+                              "application/json": ""
+                            }
+                          }
+                        ]
+                      },
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionObtener"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayMethodTransaccionListarOptions": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "AuthorizationType": "NONE",
+                      "HttpMethod": "OPTIONS",
+                      "MethodResponses": [
+                        {
+                          "StatusCode": "200",
+                          "ResponseParameters": {
+                            "method.response.header.Access-Control-Allow-Origin": true,
+                            "method.response.header.Access-Control-Allow-Headers": true,
+                            "method.response.header.Access-Control-Allow-Methods": true
+                          },
+                          "ResponseModels": {}
+                        }
+                      ],
+                      "RequestParameters": {},
+                      "Integration": {
+                        "Type": "MOCK",
+                        "RequestTemplates": {
+                          "application/json": "{statusCode:200}"
+                        },
+                        "ContentHandling": "CONVERT_TO_TEXT",
+                        "IntegrationResponses": [
+                          {
+                            "StatusCode": "200",
+                            "ResponseParameters": {
+                              "method.response.header.Access-Control-Allow-Origin": "'*'",
+                              "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                              "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                            },
+                            "ResponseTemplates": {
+                              "application/json": ""
+                            }
+                          }
+                        ]
+                      },
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionListar"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      }
+                    }
+                  },
+                  "ApiGatewayMethodTransaccionCrearPost": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "HttpMethod": "POST",
+                      "RequestParameters": {},
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionCrear"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "ApiKeyRequired": "<REDACTED>",
+                      "AuthorizationType": "NONE",
+                      "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":apigateway:",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              ":lambda:path/2015-03-31/functions/",
+                              {
+                                "Fn::GetAtt": [
+                                  "CrearTransaccionLambdaFunction",
+                                  "Arn"
+                                ]
+                              },
+                              "/invocations"
+                            ]
+                          ]
+                        }
+                      },
+                      "MethodResponses": []
+                    },
+                    "DependsOn": [
+                      "CrearTransaccionLambdaPermissionApiGateway"
+                    ]
+                  },
+                  "ApiGatewayMethodTransaccionEliminarDelete": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "HttpMethod": "DELETE",
+                      "RequestParameters": {},
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionEliminar"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "ApiKeyRequired": "<REDACTED>",
+                      "AuthorizationType": "NONE",
+                      "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":apigateway:",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              ":lambda:path/2015-03-31/functions/",
+                              {
+                                "Fn::GetAtt": [
+                                  "EliminarTransaccionLambdaFunction",
+                                  "Arn"
+                                ]
+                              },
+                              "/invocations"
+                            ]
+                          ]
+                        }
+                      },
+                      "MethodResponses": []
+                    },
+                    "DependsOn": [
+                      "EliminarTransaccionLambdaPermissionApiGateway"
+                    ]
+                  },
+                  "ApiGatewayMethodTransaccionObtenerPost": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "HttpMethod": "POST",
+                      "RequestParameters": {},
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionObtener"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "ApiKeyRequired": "<REDACTED>",
+                      "AuthorizationType": "NONE",
+                      "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":apigateway:",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              ":lambda:path/2015-03-31/functions/",
+                              {
+                                "Fn::GetAtt": [
+                                  "ObtenerTransaccionLambdaFunction",
+                                  "Arn"
+                                ]
+                              },
+                              "/invocations"
+                            ]
+                          ]
+                        }
+                      },
+                      "MethodResponses": []
+                    },
+                    "DependsOn": [
+                      "ObtenerTransaccionLambdaPermissionApiGateway"
+                    ]
+                  },
+                  "ApiGatewayMethodTransaccionListarPost": {
+                    "Type": "AWS::ApiGateway::Method",
+                    "Properties": {
+                      "HttpMethod": "POST",
+                      "RequestParameters": {},
+                      "ResourceId": {
+                        "Ref": "ApiGatewayResourceTransaccionListar"
+                      },
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "ApiKeyRequired": "<REDACTED>",
+                      "AuthorizationType": "NONE",
+                      "Integration": {
+                        "IntegrationHttpMethod": "POST",
+                        "Type": "AWS_PROXY",
+                        "Uri": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":apigateway:",
+                              {
+                                "Ref": "AWS::Region"
+                              },
+                              ":lambda:path/2015-03-31/functions/",
+                              {
+                                "Fn::GetAtt": [
+                                  "ListarTransaccionesLambdaFunction",
+                                  "Arn"
+                                ]
+                              },
+                              "/invocations"
+                            ]
+                          ]
+                        }
+                      },
+                      "MethodResponses": []
+                    },
+                    "DependsOn": [
+                      "ListarTransaccionesLambdaPermissionApiGateway"
+                    ]
+                  },
+                  "ApiGatewayDeployment1731522813881": {
+                    "Type": "AWS::ApiGateway::Deployment",
+                    "Properties": {
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "StageName": "dev"
+                    },
+                    "DependsOn": [
+                      "ApiGatewayMethodTransaccionCrearOptions",
+                      "ApiGatewayMethodTransaccionEliminarOptions",
+                      "ApiGatewayMethodTransaccionObtenerOptions",
+                      "ApiGatewayMethodTransaccionListarOptions",
+                      "ApiGatewayMethodTransaccionCrearPost",
+                      "ApiGatewayMethodTransaccionEliminarDelete",
+                      "ApiGatewayMethodTransaccionObtenerPost",
+                      "ApiGatewayMethodTransaccionListarPost"
+                    ]
+                  },
+                  "CrearTransaccionLambdaPermissionApiGateway": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "CrearTransaccionLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "ApiGatewayRestApi"
+                            },
+                            "/*/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "EliminarTransaccionLambdaPermissionApiGateway": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "EliminarTransaccionLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "ApiGatewayRestApi"
+                            },
+                            "/*/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "ObtenerTransaccionLambdaPermissionApiGateway": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "ObtenerTransaccionLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "ApiGatewayRestApi"
+                            },
+                            "/*/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "ListarTransaccionesLambdaPermissionApiGateway": {
+                    "Type": "AWS::Lambda::Permission",
+                    "Properties": {
+                      "FunctionName": {
+                        "Fn::GetAtt": [
+                          "ListarTransaccionesLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "Action": "lambda:InvokeFunction",
+                      "Principal": "apigateway.amazonaws.com",
+                      "SourceArn": {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":execute-api:",
+                            {
+                              "Ref": "AWS::Region"
+                            },
+                            ":",
+                            {
+                              "Ref": "AWS::AccountId"
+                            },
+                            ":",
+                            {
+                              "Ref": "ApiGatewayRestApi"
+                            },
+                            "/*/*"
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  "TransaccionTable": {
+                    "Type": "AWS::DynamoDB::Table",
+                    "Properties": {
+                      "TableName": "TABLA-TRANSACCION",
+                      "AttributeDefinitions": [
+                        {
+                          "AttributeName": "cuenta_origen",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "transaccion_id",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "cuenta_destino",
+                          "AttributeType": "S"
+                        },
+                        {
+                          "AttributeName": "monto",
+                          "AttributeType": "N"
+                        }
+                      ],
+                      "KeySchema": [
+                        {
+                          "AttributeName": "cuenta_origen",
+                          "KeyType": "HASH"
+                        },
+                        {
+                          "AttributeName": "transaccion_id",
+                          "KeyType": "RANGE"
+                        }
+                      ],
+                      "BillingMode": "PAY_PER_REQUEST",
+                      "GlobalSecondaryIndexes": [
+                        {
+                          "IndexName": "CuentaDestinoIndex",
+                          "KeySchema": [
+                            {
+                              "AttributeName": "cuenta_destino",
+                              "KeyType": "HASH"
+                            }
+                          ],
+                          "Projection": {
+                            "ProjectionType": "ALL"
+                          }
+                        }
+                      ],
+                      "LocalSecondaryIndexes": [
+                        {
+                          "IndexName": "MontoIndex",
+                          "KeySchema": [
+                            {
+                              "AttributeName": "cuenta_origen",
+                              "KeyType": "HASH"
+                            },
+                            {
+                              "AttributeName": "monto",
+                              "KeyType": "RANGE"
+                            }
+                          ],
+                          "Projection": {
+                            "ProjectionType": "ALL"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-ServerlessDeploymentBucketName"
+                    }
+                  },
+                  "CrearTransaccionLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA"
+                    },
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-CrearTransaccionLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "EliminarTransaccionLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg"
+                    },
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-EliminarTransaccionLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "ObtenerTransaccionLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw"
+                    },
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-ObtenerTransaccionLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "ListarTransaccionesLambdaFunctionQualifiedArn": {
+                    "Description": "Current Lambda function version",
+                    "Value": {
+                      "Ref": "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc"
+                    },
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-ListarTransaccionesLambdaFunctionQualifiedArn"
+                    }
+                  },
+                  "ServiceEndpoint": {
+                    "Description": "URL of the service endpoint",
+                    "Value": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://",
+                          {
+                            "Ref": "ApiGatewayRestApi"
+                          },
+                          ".execute-api.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/dev"
+                        ]
+                      ]
+                    },
+                    "Export": {
+                      "Name": "sls-api-transacciones-dev-ServiceEndpoint"
+                    }
+                  }
+                }
+              },
+              "vpc": {}
+            },
+            "functions": {
+              "CrearTransaccion": {
+                "handler": "CrearTransaccion.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "transaccion/crear",
+                      "method": "post",
+                      "cors": {
+                        "origin": "*",
+                        "methods": [
+                          "OPTIONS",
+                          "POST"
+                        ],
+                        "headers": [
+                          "Content-Type",
+                          "X-Amz-Date",
+                          "Authorization",
+                          "X-Api-Key",
+                          "X-Amz-Security-Token",
+                          "X-Amz-User-Agent",
+                          "X-Amzn-Trace-Id"
+                        ],
+                        "allowCredentials": "<REDACTED>"
+                      },
+                      "integration": "AWS_PROXY"
+                    }
+                  }
+                ],
+                "name": "api-transacciones-dev-CrearTransaccion",
+                "package": {},
+                "memory": 1024,
+                "timeout": 30,
+                "runtime": "python3.12",
+                "vpc": {},
+                "versionLogicalId": "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA"
+              },
+              "EliminarTransaccion": {
+                "handler": "EliminarTransaccion.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "transaccion/eliminar",
+                      "method": "delete",
+                      "cors": {
+                        "origin": "*",
+                        "methods": [
+                          "OPTIONS",
+                          "DELETE"
+                        ],
+                        "headers": [
+                          "Content-Type",
+                          "X-Amz-Date",
+                          "Authorization",
+                          "X-Api-Key",
+                          "X-Amz-Security-Token",
+                          "X-Amz-User-Agent",
+                          "X-Amzn-Trace-Id"
+                        ],
+                        "allowCredentials": "<REDACTED>"
+                      },
+                      "integration": "AWS_PROXY"
+                    }
+                  }
+                ],
+                "name": "api-transacciones-dev-EliminarTransaccion",
+                "package": {},
+                "memory": 1024,
+                "timeout": 30,
+                "runtime": "python3.12",
+                "vpc": {},
+                "versionLogicalId": "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg"
+              },
+              "ObtenerTransaccion": {
+                "handler": "ObtenerTransaccion.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "transaccion/obtener",
+                      "method": "post",
+                      "cors": {
+                        "origin": "*",
+                        "methods": [
+                          "OPTIONS",
+                          "POST"
+                        ],
+                        "headers": [
+                          "Content-Type",
+                          "X-Amz-Date",
+                          "Authorization",
+                          "X-Api-Key",
+                          "X-Amz-Security-Token",
+                          "X-Amz-User-Agent",
+                          "X-Amzn-Trace-Id"
+                        ],
+                        "allowCredentials": "<REDACTED>"
+                      },
+                      "integration": "AWS_PROXY"
+                    }
+                  }
+                ],
+                "name": "api-transacciones-dev-ObtenerTransaccion",
+                "package": {},
+                "memory": 1024,
+                "timeout": 30,
+                "runtime": "python3.12",
+                "vpc": {},
+                "versionLogicalId": "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw"
+              },
+              "ListarTransacciones": {
+                "handler": "ListarTransacciones.lambda_handler",
+                "events": [
+                  {
+                    "http": {
+                      "path": "transaccion/listar",
+                      "method": "post",
+                      "cors": {
+                        "origin": "*",
+                        "methods": [
+                          "OPTIONS",
+                          "POST"
+                        ],
+                        "headers": [
+                          "Content-Type",
+                          "X-Amz-Date",
+                          "Authorization",
+                          "X-Api-Key",
+                          "X-Amz-Security-Token",
+                          "X-Amz-User-Agent",
+                          "X-Amzn-Trace-Id"
+                        ],
+                        "allowCredentials": "<REDACTED>"
+                      },
+                      "integration": "AWS_PROXY"
+                    }
+                  }
+                ],
+                "name": "api-transacciones-dev-ListarTransacciones",
+                "package": {},
+                "memory": 1024,
+                "timeout": 30,
+                "runtime": "python3.12",
+                "vpc": {},
+                "versionLogicalId": "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc"
+              }
+            },
+            "resources": {
+              "Resources": {
+                "TransaccionTable": {
+                  "Type": "AWS::DynamoDB::Table",
+                  "Properties": {
+                    "TableName": "TABLA-TRANSACCION",
+                    "AttributeDefinitions": [
+                      {
+                        "AttributeName": "cuenta_origen",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "transaccion_id",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "cuenta_destino",
+                        "AttributeType": "S"
+                      },
+                      {
+                        "AttributeName": "monto",
+                        "AttributeType": "N"
+                      }
+                    ],
+                    "KeySchema": [
+                      {
+                        "AttributeName": "cuenta_origen",
+                        "KeyType": "HASH"
+                      },
+                      {
+                        "AttributeName": "transaccion_id",
+                        "KeyType": "RANGE"
+                      }
+                    ],
+                    "BillingMode": "PAY_PER_REQUEST",
+                    "GlobalSecondaryIndexes": [
+                      {
+                        "IndexName": "CuentaDestinoIndex",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "cuenta_destino",
+                            "KeyType": "HASH"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      }
+                    ],
+                    "LocalSecondaryIndexes": [
+                      {
+                        "IndexName": "MontoIndex",
+                        "KeySchema": [
+                          {
+                            "AttributeName": "cuenta_origen",
+                            "KeyType": "HASH"
+                          },
+                          {
+                            "AttributeName": "monto",
+                            "KeyType": "RANGE"
+                          }
+                        ],
+                        "Projection": {
+                          "ProjectionType": "ALL"
+                        }
+                      }
+                    ]
+                  }
+                }
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TRANSACCION",
+          "config": {
+            "type": "self"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:self",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TRANSACCION",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "antoniocot",
+      "service": "api-transacciones",
+      "provider": {
+        "name": "aws",
+        "runtime": "python3.12",
+        "memorySize": 1024,
+        "timeout": 30,
+        "iam": {
+          "role": "arn:aws:iam::316129865556:role/LabRole"
+        },
+        "environment": {
+          "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+        },
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "CrearTransaccionLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/api-transacciones-dev-CrearTransaccion"
+              }
+            },
+            "EliminarTransaccionLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/api-transacciones-dev-EliminarTransaccion"
+              }
+            },
+            "ObtenerTransaccionLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/api-transacciones-dev-ObtenerTransaccion"
+              }
+            },
+            "ListarTransaccionesLogGroup": {
+              "Type": "AWS::Logs::LogGroup",
+              "Properties": {
+                "LogGroupName": "/aws/lambda/api-transacciones-dev-ListarTransacciones"
+              }
+            },
+            "CrearTransaccionLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                  "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                },
+                "Handler": "CrearTransaccion.lambda_handler",
+                "Runtime": "python3.12",
+                "FunctionName": "api-transacciones-dev-CrearTransaccion",
+                "MemorySize": 1024,
+                "Timeout": 30,
+                "Environment": {
+                  "Variables": {
+                    "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                  }
+                },
+                "Role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "DependsOn": [
+                "CrearTransaccionLogGroup"
+              ]
+            },
+            "EliminarTransaccionLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                  "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                },
+                "Handler": "EliminarTransaccion.lambda_handler",
+                "Runtime": "python3.12",
+                "FunctionName": "api-transacciones-dev-EliminarTransaccion",
+                "MemorySize": 1024,
+                "Timeout": 30,
+                "Environment": {
+                  "Variables": {
+                    "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                  }
+                },
+                "Role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "DependsOn": [
+                "EliminarTransaccionLogGroup"
+              ]
+            },
+            "ObtenerTransaccionLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                  "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                },
+                "Handler": "ObtenerTransaccion.lambda_handler",
+                "Runtime": "python3.12",
+                "FunctionName": "api-transacciones-dev-ObtenerTransaccion",
+                "MemorySize": 1024,
+                "Timeout": 30,
+                "Environment": {
+                  "Variables": {
+                    "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                  }
+                },
+                "Role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "DependsOn": [
+                "ObtenerTransaccionLogGroup"
+              ]
+            },
+            "ListarTransaccionesLambdaFunction": {
+              "Type": "AWS::Lambda::Function",
+              "Properties": {
+                "Code": {
+                  "S3Bucket": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                  "S3Key": "serverless/api-transacciones/dev/1731522814969-2024-11-13T18:33:34.969Z/api-transacciones.zip"
+                },
+                "Handler": "ListarTransacciones.lambda_handler",
+                "Runtime": "python3.12",
+                "FunctionName": "api-transacciones-dev-ListarTransacciones",
+                "MemorySize": 1024,
+                "Timeout": 30,
+                "Environment": {
+                  "Variables": {
+                    "TRANSACTION_TABLE": "TABLA-TRANSACCION"
+                  }
+                },
+                "Role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "DependsOn": [
+                "ListarTransaccionesLogGroup"
+              ]
+            },
+            "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "CrearTransaccionLambdaFunction"
+                },
+                "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+              }
+            },
+            "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "EliminarTransaccionLambdaFunction"
+                },
+                "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+              }
+            },
+            "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "ObtenerTransaccionLambdaFunction"
+                },
+                "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+              }
+            },
+            "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc": {
+              "Type": "AWS::Lambda::Version",
+              "DeletionPolicy": "Retain",
+              "Properties": {
+                "FunctionName": {
+                  "Ref": "ListarTransaccionesLambdaFunction"
+                },
+                "CodeSha256": "qPBU3I20AnJVv01lYF/t4IKhMsHYyqjJCNgkVH+ny3M="
+              }
+            },
+            "ApiGatewayRestApi": {
+              "Type": "AWS::ApiGateway::RestApi",
+              "Properties": {
+                "Name": "dev-api-transacciones",
+                "EndpointConfiguration": {
+                  "Types": [
+                    "EDGE"
+                  ]
+                },
+                "Policy": ""
+              }
+            },
+            "ApiGatewayResourceTransaccion": {
+              "Type": "AWS::ApiGateway::Resource",
+              "Properties": {
+                "ParentId": {
+                  "Fn::GetAtt": [
+                    "ApiGatewayRestApi",
+                    "RootResourceId"
+                  ]
+                },
+                "PathPart": "transaccion",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayResourceTransaccionCrear": {
+              "Type": "AWS::ApiGateway::Resource",
+              "Properties": {
+                "ParentId": {
+                  "Ref": "ApiGatewayResourceTransaccion"
+                },
+                "PathPart": "crear",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayResourceTransaccionEliminar": {
+              "Type": "AWS::ApiGateway::Resource",
+              "Properties": {
+                "ParentId": {
+                  "Ref": "ApiGatewayResourceTransaccion"
+                },
+                "PathPart": "eliminar",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayResourceTransaccionObtener": {
+              "Type": "AWS::ApiGateway::Resource",
+              "Properties": {
+                "ParentId": {
+                  "Ref": "ApiGatewayResourceTransaccion"
+                },
+                "PathPart": "obtener",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayResourceTransaccionListar": {
+              "Type": "AWS::ApiGateway::Resource",
+              "Properties": {
+                "ParentId": {
+                  "Ref": "ApiGatewayResourceTransaccion"
+                },
+                "PathPart": "listar",
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodTransaccionCrearOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionCrear"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodTransaccionEliminarOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,DELETE'"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionEliminar"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodTransaccionObtenerOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionObtener"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodTransaccionListarOptions": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "AuthorizationType": "NONE",
+                "HttpMethod": "OPTIONS",
+                "MethodResponses": [
+                  {
+                    "StatusCode": "200",
+                    "ResponseParameters": {
+                      "method.response.header.Access-Control-Allow-Origin": true,
+                      "method.response.header.Access-Control-Allow-Headers": true,
+                      "method.response.header.Access-Control-Allow-Methods": true
+                    },
+                    "ResponseModels": {}
+                  }
+                ],
+                "RequestParameters": {},
+                "Integration": {
+                  "Type": "MOCK",
+                  "RequestTemplates": {
+                    "application/json": "{statusCode:200}"
+                  },
+                  "ContentHandling": "CONVERT_TO_TEXT",
+                  "IntegrationResponses": [
+                    {
+                      "StatusCode": "200",
+                      "ResponseParameters": {
+                        "method.response.header.Access-Control-Allow-Origin": "'*'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent,X-Amzn-Trace-Id'",
+                        "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,POST'"
+                      },
+                      "ResponseTemplates": {
+                        "application/json": ""
+                      }
+                    }
+                  ]
+                },
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionListar"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                }
+              }
+            },
+            "ApiGatewayMethodTransaccionCrearPost": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "POST",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionCrear"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "CrearTransaccionLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "CrearTransaccionLambdaPermissionApiGateway"
+              ]
+            },
+            "ApiGatewayMethodTransaccionEliminarDelete": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "DELETE",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionEliminar"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "EliminarTransaccionLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "EliminarTransaccionLambdaPermissionApiGateway"
+              ]
+            },
+            "ApiGatewayMethodTransaccionObtenerPost": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "POST",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionObtener"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "ObtenerTransaccionLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "ObtenerTransaccionLambdaPermissionApiGateway"
+              ]
+            },
+            "ApiGatewayMethodTransaccionListarPost": {
+              "Type": "AWS::ApiGateway::Method",
+              "Properties": {
+                "HttpMethod": "POST",
+                "RequestParameters": {},
+                "ResourceId": {
+                  "Ref": "ApiGatewayResourceTransaccionListar"
+                },
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "ApiKeyRequired": "<REDACTED>",
+                "AuthorizationType": "NONE",
+                "Integration": {
+                  "IntegrationHttpMethod": "POST",
+                  "Type": "AWS_PROXY",
+                  "Uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:",
+                        {
+                          "Ref": "AWS::Partition"
+                        },
+                        ":apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Fn::GetAtt": [
+                            "ListarTransaccionesLambdaFunction",
+                            "Arn"
+                          ]
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  }
+                },
+                "MethodResponses": []
+              },
+              "DependsOn": [
+                "ListarTransaccionesLambdaPermissionApiGateway"
+              ]
+            },
+            "ApiGatewayDeployment1731522813881": {
+              "Type": "AWS::ApiGateway::Deployment",
+              "Properties": {
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "StageName": "dev"
+              },
+              "DependsOn": [
+                "ApiGatewayMethodTransaccionCrearOptions",
+                "ApiGatewayMethodTransaccionEliminarOptions",
+                "ApiGatewayMethodTransaccionObtenerOptions",
+                "ApiGatewayMethodTransaccionListarOptions",
+                "ApiGatewayMethodTransaccionCrearPost",
+                "ApiGatewayMethodTransaccionEliminarDelete",
+                "ApiGatewayMethodTransaccionObtenerPost",
+                "ApiGatewayMethodTransaccionListarPost"
+              ]
+            },
+            "CrearTransaccionLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "CrearTransaccionLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "EliminarTransaccionLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "EliminarTransaccionLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "ObtenerTransaccionLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "ObtenerTransaccionLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "ListarTransaccionesLambdaPermissionApiGateway": {
+              "Type": "AWS::Lambda::Permission",
+              "Properties": {
+                "FunctionName": {
+                  "Fn::GetAtt": [
+                    "ListarTransaccionesLambdaFunction",
+                    "Arn"
+                  ]
+                },
+                "Action": "lambda:InvokeFunction",
+                "Principal": "apigateway.amazonaws.com",
+                "SourceArn": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":execute-api:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":",
+                      {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "/*/*"
+                    ]
+                  ]
+                }
+              }
+            },
+            "TransaccionTable": {
+              "Type": "AWS::DynamoDB::Table",
+              "Properties": {
+                "TableName": "TABLA-TRANSACCION",
+                "AttributeDefinitions": [
+                  {
+                    "AttributeName": "cuenta_origen",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "transaccion_id",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "cuenta_destino",
+                    "AttributeType": "S"
+                  },
+                  {
+                    "AttributeName": "monto",
+                    "AttributeType": "N"
+                  }
+                ],
+                "KeySchema": [
+                  {
+                    "AttributeName": "cuenta_origen",
+                    "KeyType": "HASH"
+                  },
+                  {
+                    "AttributeName": "transaccion_id",
+                    "KeyType": "RANGE"
+                  }
+                ],
+                "BillingMode": "PAY_PER_REQUEST",
+                "GlobalSecondaryIndexes": [
+                  {
+                    "IndexName": "CuentaDestinoIndex",
+                    "KeySchema": [
+                      {
+                        "AttributeName": "cuenta_destino",
+                        "KeyType": "HASH"
+                      }
+                    ],
+                    "Projection": {
+                      "ProjectionType": "ALL"
+                    }
+                  }
+                ],
+                "LocalSecondaryIndexes": [
+                  {
+                    "IndexName": "MontoIndex",
+                    "KeySchema": [
+                      {
+                        "AttributeName": "cuenta_origen",
+                        "KeyType": "HASH"
+                      },
+                      {
+                        "AttributeName": "monto",
+                        "KeyType": "RANGE"
+                      }
+                    ],
+                    "Projection": {
+                      "ProjectionType": "ALL"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+              "Export": {
+                "Name": "sls-api-transacciones-dev-ServerlessDeploymentBucketName"
+              }
+            },
+            "CrearTransaccionLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA"
+              },
+              "Export": {
+                "Name": "sls-api-transacciones-dev-CrearTransaccionLambdaFunctionQualifiedArn"
+              }
+            },
+            "EliminarTransaccionLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg"
+              },
+              "Export": {
+                "Name": "sls-api-transacciones-dev-EliminarTransaccionLambdaFunctionQualifiedArn"
+              }
+            },
+            "ObtenerTransaccionLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw"
+              },
+              "Export": {
+                "Name": "sls-api-transacciones-dev-ObtenerTransaccionLambdaFunctionQualifiedArn"
+              }
+            },
+            "ListarTransaccionesLambdaFunctionQualifiedArn": {
+              "Description": "Current Lambda function version",
+              "Value": {
+                "Ref": "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc"
+              },
+              "Export": {
+                "Name": "sls-api-transacciones-dev-ListarTransaccionesLambdaFunctionQualifiedArn"
+              }
+            },
+            "ServiceEndpoint": {
+              "Description": "URL of the service endpoint",
+              "Value": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "https://",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    ".execute-api.",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ".",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    },
+                    "/dev"
+                  ]
+                ]
+              },
+              "Export": {
+                "Name": "sls-api-transacciones-dev-ServiceEndpoint"
+              }
+            }
+          }
+        },
+        "vpc": {}
+      },
+      "functions": {
+        "CrearTransaccion": {
+          "handler": "CrearTransaccion.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "transaccion/crear",
+                "method": "post",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "api-transacciones-dev-CrearTransaccion",
+          "package": {},
+          "memory": 1024,
+          "timeout": 30,
+          "runtime": "python3.12",
+          "vpc": {},
+          "versionLogicalId": "CrearTransaccionLambdaVersionNuphQu86B7wwz2o6pFsqFCxMKt8arEWbv6l7TzNPA"
+        },
+        "EliminarTransaccion": {
+          "handler": "EliminarTransaccion.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "transaccion/eliminar",
+                "method": "delete",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "DELETE"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "api-transacciones-dev-EliminarTransaccion",
+          "package": {},
+          "memory": 1024,
+          "timeout": 30,
+          "runtime": "python3.12",
+          "vpc": {},
+          "versionLogicalId": "EliminarTransaccionLambdaVersioneU1JKiC08ZeCZIskPAbwwwFlJwRaeSkzxwKQLRg"
+        },
+        "ObtenerTransaccion": {
+          "handler": "ObtenerTransaccion.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "transaccion/obtener",
+                "method": "post",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "api-transacciones-dev-ObtenerTransaccion",
+          "package": {},
+          "memory": 1024,
+          "timeout": 30,
+          "runtime": "python3.12",
+          "vpc": {},
+          "versionLogicalId": "ObtenerTransaccionLambdaVersionivWWZ8LlNdaIDSQ4K04QOBywHqjBQI6xSRfpfO0fsMw"
+        },
+        "ListarTransacciones": {
+          "handler": "ListarTransacciones.lambda_handler",
+          "events": [
+            {
+              "http": {
+                "path": "transaccion/listar",
+                "method": "post",
+                "cors": {
+                  "origin": "*",
+                  "methods": [
+                    "OPTIONS",
+                    "POST"
+                  ],
+                  "headers": [
+                    "Content-Type",
+                    "X-Amz-Date",
+                    "Authorization",
+                    "X-Api-Key",
+                    "X-Amz-Security-Token",
+                    "X-Amz-User-Agent",
+                    "X-Amzn-Trace-Id"
+                  ],
+                  "allowCredentials": "<REDACTED>"
+                },
+                "integration": "AWS_PROXY"
+              }
+            }
+          ],
+          "name": "api-transacciones-dev-ListarTransacciones",
+          "package": {},
+          "memory": 1024,
+          "timeout": 30,
+          "runtime": "python3.12",
+          "vpc": {},
+          "versionLogicalId": "ListarTransaccionesLambdaVersiong1k0MipPS2780uzr8I7r5OctGwfmSN4AliQpgt6jnRc"
+        }
+      },
+      "resources": {
+        "Resources": {
+          "TransaccionTable": {
+            "Type": "AWS::DynamoDB::Table",
+            "Properties": {
+              "TableName": "TABLA-TRANSACCION",
+              "AttributeDefinitions": [
+                {
+                  "AttributeName": "cuenta_origen",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "transaccion_id",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "cuenta_destino",
+                  "AttributeType": "S"
+                },
+                {
+                  "AttributeName": "monto",
+                  "AttributeType": "N"
+                }
+              ],
+              "KeySchema": [
+                {
+                  "AttributeName": "cuenta_origen",
+                  "KeyType": "HASH"
+                },
+                {
+                  "AttributeName": "transaccion_id",
+                  "KeyType": "RANGE"
+                }
+              ],
+              "BillingMode": "PAY_PER_REQUEST",
+              "GlobalSecondaryIndexes": [
+                {
+                  "IndexName": "CuentaDestinoIndex",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "cuenta_destino",
+                      "KeyType": "HASH"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  }
+                }
+              ],
+              "LocalSecondaryIndexes": [
+                {
+                  "IndexName": "MontoIndex",
+                  "KeySchema": [
+                    {
+                      "AttributeName": "cuenta_origen",
+                      "KeyType": "HASH"
+                    },
+                    {
+                      "AttributeName": "monto",
+                      "KeyType": "RANGE"
+                    }
+                  ],
+                  "Projection": {
+                    "ProjectionType": "ALL"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "Outputs": {}
+      }
+    },
+    "serviceRawFile": "org: antoniocot\nservice: api-transacciones\n\nprovider:\n  name: aws\n  runtime: python3.12\n  memorySize: 1024\n  timeout: 30\n  iam:\n    role: arn:aws:iam::316129865556:role/LabRole\n  environment:\n    TRANSACTION_TABLE: TABLA-TRANSACCION\n\nfunctions:\n  CrearTransaccion:\n    handler: CrearTransaccion.lambda_handler\n    events:\n      - http:\n          path: /transaccion/crear\n          method: post\n          cors: true\n\n  EliminarTransaccion:\n    handler: EliminarTransaccion.lambda_handler\n    events:\n      - http:\n          path: /transaccion/eliminar\n          method: delete\n          cors: true\n\n  ObtenerTransaccion:\n    handler: ObtenerTransaccion.lambda_handler\n    events:\n      - http:\n          path: /transaccion/obtener\n          method: post\n          cors: true\n\n  ListarTransacciones:\n    handler: ListarTransacciones.lambda_handler\n    events:\n      - http:\n          path: /transaccion/listar\n          method: post\n          cors: true\n\nresources:\n  Resources:\n    TransaccionTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: ${self:provider.environment.TRANSACTION_TABLE}\n        AttributeDefinitions:\n          - AttributeName: cuenta_origen\n            AttributeType: S\n          - AttributeName: transaccion_id\n            AttributeType: S\n          - AttributeName: cuenta_destino\n            AttributeType: S\n          - AttributeName: monto\n            AttributeType: N\n        KeySchema:\n          - AttributeName: cuenta_origen\n            KeyType: HASH\n          - AttributeName: transaccion_id\n            KeyType: RANGE\n        BillingMode: PAY_PER_REQUEST\n        GlobalSecondaryIndexes:\n          - IndexName: CuentaDestinoIndex\n            KeySchema:\n              - AttributeName: cuenta_destino\n                KeyType: HASH\n            Projection:\n              ProjectionType: ALL\n        LocalSecondaryIndexes:\n          - IndexName: MontoIndex\n            KeySchema:\n              - AttributeName: cuenta_origen\n                KeyType: HASH\n              - AttributeName: monto\n                KeyType: RANGE\n            Projection:\n              ProjectionType: ALL",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": null,
+    "params": {},
+    "machineId": "1a17178cb52deea2b46ae6a73b4b98d9",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "2e99066c-18f4-402b-a9fe-2e7dad52eb58",
+    "orgName": "antoniocot",
+    "userId": "ybR6NRF6kxQTq0WCR2",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "antoniocot",
+    "subscription": null,
+    "userEmail": "antonio.cotera@utec.edu.pe",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "316129865556",
+    "projectType": "traditional",
+    "versionSf": "4.4.7",
+    "serviceProviderAwsCfStackName": "api-transacciones-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:316129865556:stack/api-transacciones-dev/687441c0-a0bc-11ef-bc79-12b4c9d12bb5",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:316129865556:stack/api-transacciones-dev/687441c0-a0bc-11ef-bc79-12b4c9d12bb5",
+    "serviceProviderAwsCfStackCreated": "2024-11-12T06:07:33.977Z",
+    "serviceProviderAwsCfStackUpdated": "2024-11-13T18:33:36.704Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "ListarTransaccionesLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-transacciones-dev-ListarTransacciones:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-transacciones-dev-ListarTransaccionesLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "EliminarTransaccionLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-transacciones-dev-EliminarTransaccion:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-transacciones-dev-EliminarTransaccionLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ObtenerTransaccionLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-transacciones-dev-ObtenerTransaccion:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-transacciones-dev-ObtenerTransaccionLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ServiceEndpoint",
+        "OutputValue": "https://lpv8wsrqed.execute-api.us-east-1.amazonaws.com/dev",
+        "Description": "URL of the service endpoint",
+        "ExportName": "sls-api-transacciones-dev-ServiceEndpoint"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+        "ExportName": "sls-api-transacciones-dev-ServerlessDeploymentBucketName"
+      },
+      {
+        "OutputKey": "CrearTransaccionLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-transacciones-dev-CrearTransaccion:2",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-transacciones-dev-CrearTransaccionLambdaFunctionQualifiedArn"
+      }
+    ]
+  }
+}

@@ -49,7 +49,7 @@ functions:
     events:
       - http:
           path: /soporte/listar
-          method: get
+          method: post
           cors: true
 
   ListarSolicitudesPorUsuario:

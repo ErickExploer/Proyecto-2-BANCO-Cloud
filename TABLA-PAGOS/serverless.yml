@@ -10,8 +10,7 @@ provider:
     role: arn:aws:iam::316129865556:role/LabRole
   environment:
     PAGOS_TABLE: TABLA-PAGOS
-    TARJETAS_TABLE: TABLA-TARJETAS
-
+    
 functions:
   CrearPagoDeuda:
     handler: CrearPagoDeuda.lambda_handler
@@ -42,7 +41,7 @@ functions:
     events:
       - http:
           path: /pago/obtener
-          method: get
+          method: post
           cors: true
 
   ListarPagos:
@@ -50,7 +49,7 @@ functions:
     events:
       - http:
           path: /pago/listar
-          method: get
+          method: post
           cors: true
           
   ActualizarPago:
@@ -68,7 +67,6 @@ functions:
           path: /pago/eliminar
           method: delete
           cors: true
-
 resources:
   Resources:
     PagosTable:
@@ -80,12 +78,18 @@ resources:
             AttributeType: S
           - AttributeName: pago_id
             AttributeType: S
+          - AttributeName: tipo
+            AttributeType: S
+          - AttributeName: fecha
+            AttributeType: S
         KeySchema:
           - AttributeName: usuario_id
             KeyType: HASH
           - AttributeName: pago_id
             KeyType: RANGE
         BillingMode: PAY_PER_REQUEST
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
         GlobalSecondaryIndexes:
           - IndexName: TipoIndex
             KeySchema:
@@ -95,5 +99,13 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
-        StreamSpecification:
-          StreamViewType: NEW_AND_OLD_IMAGES
+        LocalSecondaryIndexes:
+          - IndexName: FechaIndex
+            KeySchema:
+              - AttributeName: usuario_id  # Mismo HASH que la tabla
+                KeyType: HASH
+              - AttributeName: fecha
+                KeyType: RANGE
+            Projection:
+              ProjectionType: ALL
+

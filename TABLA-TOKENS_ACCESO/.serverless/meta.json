@@ -1,0 +1,422 @@
+{
+  "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TOKENS_ACCESO": {
+    "versionSfCore": null,
+    "versionFramework": "4.4.9",
+    "isWithinCompose": false,
+    "isCompose": false,
+    "composeOrgName": null,
+    "composeResolverProviders": {
+      "default-aws-credential-resolver": "<REDACTED>",
+      "self": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "antoniocot",
+            "service": "api-tokens",
+            "provider": {
+              "name": "aws",
+              "runtime": "python3.12",
+              "memorySize": 1024,
+              "timeout": 30,
+              "iam": {
+                "role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "environment": {
+                "TABLE_NAME": "TABLA-TOKENS_ACCESO"
+              },
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "ValidarTokenLogGroup": "<REDACTED>",
+                  "ValidarTokenLambdaFunction": "<REDACTED>",
+                  "ValidarTokenLambdaVersionYiX5XwDQrpLC8uZ7eEgWAgR9dr6n3JbCCPIxRZp8I": "<REDACTED>",
+                  "ApiGatewayRestApi": {
+                    "Type": "AWS::ApiGateway::RestApi",
+                    "Properties": {
+                      "Name": "dev-api-tokens",
+                      "EndpointConfiguration": {
+                        "Types": [
+                          "EDGE"
+                        ]
+                      },
+                      "Policy": ""
+                    }
+                  },
+                  "ApiGatewayResourceTokens": "<REDACTED>",
+                  "ApiGatewayResourceTokensValidar": "<REDACTED>",
+                  "ApiGatewayMethodTokensValidarOptions": "<REDACTED>",
+                  "ApiGatewayMethodTokensValidarPost": "<REDACTED>",
+                  "ApiGatewayDeployment1731640421488": {
+                    "Type": "AWS::ApiGateway::Deployment",
+                    "Properties": {
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "StageName": "dev"
+                    },
+                    "DependsOn": [
+                      "ApiGatewayMethodTokensValidarOptions",
+                      "ApiGatewayMethodTokensValidarPost"
+                    ]
+                  },
+                  "ValidarTokenLambdaPermissionApiGateway": "<REDACTED>",
+                  "TokensAccesoTable": "<REDACTED>"
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                    "Export": {
+                      "Name": "sls-api-tokens-dev-ServerlessDeploymentBucketName"
+                    }
+                  },
+                  "ValidarTokenLambdaFunctionQualifiedArn": "<REDACTED>",
+                  "ServiceEndpoint": {
+                    "Description": "URL of the service endpoint",
+                    "Value": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://",
+                          {
+                            "Ref": "ApiGatewayRestApi"
+                          },
+                          ".execute-api.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/dev"
+                        ]
+                      ]
+                    },
+                    "Export": {
+                      "Name": "sls-api-tokens-dev-ServiceEndpoint"
+                    }
+                  }
+                }
+              },
+              "vpc": {}
+            },
+            "functions": {
+              "ValidarToken": "<REDACTED>"
+            },
+            "resources": {
+              "Resources": {
+                "TokensAccesoTable": "<REDACTED>"
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TOKENS_ACCESO",
+          "config": {
+            "type": "self"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:self",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      },
+      "sls": {
+        "instance": {
+          "credentials": "<REDACTED>",
+          "serviceConfigFile": {
+            "org": "antoniocot",
+            "service": "api-tokens",
+            "provider": {
+              "name": "aws",
+              "runtime": "python3.12",
+              "memorySize": 1024,
+              "timeout": 30,
+              "iam": {
+                "role": "arn:aws:iam::316129865556:role/LabRole"
+              },
+              "environment": {
+                "TABLE_NAME": "TABLA-TOKENS_ACCESO"
+              },
+              "stage": "dev",
+              "region": "us-east-1",
+              "versionFunctions": true,
+              "compiledCloudFormationTemplate": {
+                "AWSTemplateFormatVersion": "2010-09-09",
+                "Description": "The AWS CloudFormation template for this Serverless application",
+                "Resources": {
+                  "ValidarTokenLogGroup": "<REDACTED>",
+                  "ValidarTokenLambdaFunction": "<REDACTED>",
+                  "ValidarTokenLambdaVersionYiX5XwDQrpLC8uZ7eEgWAgR9dr6n3JbCCPIxRZp8I": "<REDACTED>",
+                  "ApiGatewayRestApi": {
+                    "Type": "AWS::ApiGateway::RestApi",
+                    "Properties": {
+                      "Name": "dev-api-tokens",
+                      "EndpointConfiguration": {
+                        "Types": [
+                          "EDGE"
+                        ]
+                      },
+                      "Policy": ""
+                    }
+                  },
+                  "ApiGatewayResourceTokens": "<REDACTED>",
+                  "ApiGatewayResourceTokensValidar": "<REDACTED>",
+                  "ApiGatewayMethodTokensValidarOptions": "<REDACTED>",
+                  "ApiGatewayMethodTokensValidarPost": "<REDACTED>",
+                  "ApiGatewayDeployment1731640421488": {
+                    "Type": "AWS::ApiGateway::Deployment",
+                    "Properties": {
+                      "RestApiId": {
+                        "Ref": "ApiGatewayRestApi"
+                      },
+                      "StageName": "dev"
+                    },
+                    "DependsOn": [
+                      "ApiGatewayMethodTokensValidarOptions",
+                      "ApiGatewayMethodTokensValidarPost"
+                    ]
+                  },
+                  "ValidarTokenLambdaPermissionApiGateway": "<REDACTED>",
+                  "TokensAccesoTable": "<REDACTED>"
+                },
+                "Outputs": {
+                  "ServerlessDeploymentBucketName": {
+                    "Value": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+                    "Export": {
+                      "Name": "sls-api-tokens-dev-ServerlessDeploymentBucketName"
+                    }
+                  },
+                  "ValidarTokenLambdaFunctionQualifiedArn": "<REDACTED>",
+                  "ServiceEndpoint": {
+                    "Description": "URL of the service endpoint",
+                    "Value": {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "https://",
+                          {
+                            "Ref": "ApiGatewayRestApi"
+                          },
+                          ".execute-api.",
+                          {
+                            "Ref": "AWS::Region"
+                          },
+                          ".",
+                          {
+                            "Ref": "AWS::URLSuffix"
+                          },
+                          "/dev"
+                        ]
+                      ]
+                    },
+                    "Export": {
+                      "Name": "sls-api-tokens-dev-ServiceEndpoint"
+                    }
+                  }
+                }
+              },
+              "vpc": {}
+            },
+            "functions": {
+              "ValidarToken": "<REDACTED>"
+            },
+            "resources": {
+              "Resources": {
+                "TokensAccesoTable": "<REDACTED>"
+              },
+              "Outputs": {}
+            }
+          },
+          "configFileDirPath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TOKENS_ACCESO",
+          "config": {
+            "type": "sls"
+          },
+          "options": {},
+          "stage": "dev",
+          "dashboard": null,
+          "logger": {
+            "namespace": "s:core:resolver:sls",
+            "prefix": null,
+            "prefixColor": null
+          },
+          "_credentialsPromise": "<REDACTED>"
+        },
+        "resolvers": {}
+      }
+    },
+    "composeServiceName": null,
+    "servicePath": "/home/ubuntu/Proyecto-2-BANCO-Cloud/TABLA-TOKENS_ACCESO",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "org": "antoniocot",
+      "service": "api-tokens",
+      "provider": {
+        "name": "aws",
+        "runtime": "python3.12",
+        "memorySize": 1024,
+        "timeout": 30,
+        "iam": {
+          "role": "arn:aws:iam::316129865556:role/LabRole"
+        },
+        "environment": {
+          "TABLE_NAME": "TABLA-TOKENS_ACCESO"
+        },
+        "stage": "dev",
+        "region": "us-east-1",
+        "versionFunctions": true,
+        "compiledCloudFormationTemplate": {
+          "AWSTemplateFormatVersion": "2010-09-09",
+          "Description": "The AWS CloudFormation template for this Serverless application",
+          "Resources": {
+            "ValidarTokenLogGroup": "<REDACTED>",
+            "ValidarTokenLambdaFunction": "<REDACTED>",
+            "ValidarTokenLambdaVersionYiX5XwDQrpLC8uZ7eEgWAgR9dr6n3JbCCPIxRZp8I": "<REDACTED>",
+            "ApiGatewayRestApi": {
+              "Type": "AWS::ApiGateway::RestApi",
+              "Properties": {
+                "Name": "dev-api-tokens",
+                "EndpointConfiguration": {
+                  "Types": [
+                    "EDGE"
+                  ]
+                },
+                "Policy": ""
+              }
+            },
+            "ApiGatewayResourceTokens": "<REDACTED>",
+            "ApiGatewayResourceTokensValidar": "<REDACTED>",
+            "ApiGatewayMethodTokensValidarOptions": "<REDACTED>",
+            "ApiGatewayMethodTokensValidarPost": "<REDACTED>",
+            "ApiGatewayDeployment1731640421488": {
+              "Type": "AWS::ApiGateway::Deployment",
+              "Properties": {
+                "RestApiId": {
+                  "Ref": "ApiGatewayRestApi"
+                },
+                "StageName": "dev"
+              },
+              "DependsOn": [
+                "ApiGatewayMethodTokensValidarOptions",
+                "ApiGatewayMethodTokensValidarPost"
+              ]
+            },
+            "ValidarTokenLambdaPermissionApiGateway": "<REDACTED>",
+            "TokensAccesoTable": "<REDACTED>"
+          },
+          "Outputs": {
+            "ServerlessDeploymentBucketName": {
+              "Value": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+              "Export": {
+                "Name": "sls-api-tokens-dev-ServerlessDeploymentBucketName"
+              }
+            },
+            "ValidarTokenLambdaFunctionQualifiedArn": "<REDACTED>",
+            "ServiceEndpoint": {
+              "Description": "URL of the service endpoint",
+              "Value": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "https://",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    ".execute-api.",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ".",
+                    {
+                      "Ref": "AWS::URLSuffix"
+                    },
+                    "/dev"
+                  ]
+                ]
+              },
+              "Export": {
+                "Name": "sls-api-tokens-dev-ServiceEndpoint"
+              }
+            }
+          }
+        },
+        "vpc": {}
+      },
+      "functions": {
+        "ValidarToken": "<REDACTED>"
+      },
+      "resources": {
+        "Resources": {
+          "TokensAccesoTable": "<REDACTED>"
+        },
+        "Outputs": {}
+      }
+    },
+    "serviceRawFile": "org: antoniocot\nservice: api-tokens\n\nprovider:\n  name: aws\n  runtime: python3.12\n  memorySize: 1024\n  timeout: 30\n  iam:\n    role: arn:aws:iam::316129865556:role/LabRole\n  environment:\n    TABLE_NAME: TABLA-TOKENS_ACCESO\n\nfunctions:\n  ValidarToken:\n    handler: ValidarToken.lambda_handler\n    events:\n      - http:\n          path: /tokens/validar\n          method: post\n          cors: true\n          integration: lambda\n\nresources:\n  Resources:\n    TokensAccesoTable:\n      Type: AWS::DynamoDB::Table\n      Properties:\n        TableName: ${self:provider.environment.TABLE_NAME}\n        AttributeDefinitions:\n          - AttributeName: token\n            AttributeType: S\n          - AttributeName: usuario_id\n            AttributeType: S\n        KeySchema:\n          - AttributeName: token\n            KeyType: HASH\n        BillingMode: PAY_PER_REQUEST\n        GlobalSecondaryIndexes:\n          - IndexName: usuario_id-index\n            KeySchema:\n              - AttributeName: usuario_id\n                KeyType: HASH\n            Projection:\n              ProjectionType: ALL\n",
+    "command": [
+      "deploy"
+    ],
+    "options": {},
+    "error": null,
+    "params": {},
+    "machineId": "1a17178cb52deea2b46ae6a73b4b98d9",
+    "stage": "dev",
+    "accessKeyV2": "<REDACTED>",
+    "accessKeyV1": "<REDACTED>",
+    "orgId": "2e99066c-18f4-402b-a9fe-2e7dad52eb58",
+    "orgName": "antoniocot",
+    "userId": "ybR6NRF6kxQTq0WCR2",
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "userName": "antoniocot",
+    "subscription": null,
+    "userEmail": "antonio.cotera@utec.edu.pe",
+    "serviceProviderAwsRegion": "us-east-1",
+    "serviceProviderAwsCredentials": "<REDACTED>",
+    "serviceProviderAwsAccountId": "316129865556",
+    "projectType": "traditional",
+    "versionSf": "4.4.9",
+    "serviceProviderAwsCfStackName": "api-tokens-dev",
+    "integrations": {},
+    "serviceUniqueId": "arn:aws:cloudformation:us-east-1:316129865556:stack/api-tokens-dev/acb15eb0-9f75-11ef-b3ff-12de29d72c4d",
+    "serviceProviderAwsCfStackId": "arn:aws:cloudformation:us-east-1:316129865556:stack/api-tokens-dev/acb15eb0-9f75-11ef-b3ff-12de29d72c4d",
+    "serviceProviderAwsCfStackCreated": "2024-11-10T15:08:43.032Z",
+    "serviceProviderAwsCfStackUpdated": "2024-11-15T03:13:46.879Z",
+    "serviceProviderAwsCfStackStatus": "UPDATE_COMPLETE",
+    "serviceProviderAwsCfStackOutputs": [
+      {
+        "OutputKey": "ValidarTokenLambdaFunctionQualifiedArn",
+        "OutputValue": "arn:aws:lambda:us-east-1:316129865556:function:api-tokens-dev-ValidarToken:3",
+        "Description": "Current Lambda function version",
+        "ExportName": "sls-api-tokens-dev-ValidarTokenLambdaFunctionQualifiedArn"
+      },
+      {
+        "OutputKey": "ServiceEndpoint",
+        "OutputValue": "https://u64vwhx8z1.execute-api.us-east-1.amazonaws.com/dev",
+        "Description": "URL of the service endpoint",
+        "ExportName": "sls-api-tokens-dev-ServiceEndpoint"
+      },
+      {
+        "OutputKey": "ServerlessDeploymentBucketName",
+        "OutputValue": "serverless-framework-deployments-us-east-1-3b51566d-90f3",
+        "ExportName": "sls-api-tokens-dev-ServerlessDeploymentBucketName"
+      }
+    ]
+  }
+}

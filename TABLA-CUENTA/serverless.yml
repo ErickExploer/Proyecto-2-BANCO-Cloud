@@ -57,6 +57,15 @@ functions:
           cors: true
           integration: lambda
 
+  AgregarSaldoCuenta:
+    handler: agregarSaldoCuenta.lambda_handler
+    events:
+      - http: # El problema era aquí; faltaba el array para "events"
+          path: /cuentas/agregar-saldo
+          method: post
+          cors: true
+          integration: lambda 
+
 resources:
   Resources:
     CuentasTable:
