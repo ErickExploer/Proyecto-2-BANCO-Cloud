@@ -19,6 +19,7 @@ functions:
           path: /pago/deuda
           method: post
           cors: true
+          integration: lambda
 
   CrearPagoServicio:
     handler: CrearPagoServicio.lambda_handler
@@ -27,6 +28,7 @@ functions:
           path: /pago/servicio
           method: post
           cors: true
+          integration: lambda
 
   RealizarPago:
     handler: RealizarPago.lambda_handler
@@ -35,6 +37,7 @@ functions:
           path: /pago/realizar
           method: post
           cors: true
+          integration: lambda
 
   ObtenerPago:
     handler: ObtenerPago.lambda_handler
@@ -43,6 +46,7 @@ functions:
           path: /pago/obtener
           method: post
           cors: true
+          integration: lambda
 
   ListarPagos:
     handler: ListarPagos.lambda_handler
@@ -51,6 +55,7 @@ functions:
           path: /pago/listar
           method: post
           cors: true
+          integration: lambda
           
   ActualizarPago:
     handler: ActualizarPago.lambda_handler
@@ -59,6 +64,7 @@ functions:
           path: /pago/actualizar
           method: put
           cors: true
+          integration: lambda
 
   EliminarPago:
     handler: EliminarPago.lambda_handler
@@ -67,6 +73,7 @@ functions:
           path: /pago/eliminar
           method: delete
           cors: true
+          integration: lambda
 resources:
   Resources:
     PagosTable:
@@ -108,4 +115,3 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
-
