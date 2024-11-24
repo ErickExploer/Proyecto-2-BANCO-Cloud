@@ -105,7 +105,7 @@ def lambda_handler(event, context):
         # Retornar la información detallada del pago y saldo
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'mensaje': 'Pago realizado con éxito',
                 'usuario_id': usuario_id,
                 'pago_id': pago_id,
@@ -115,15 +115,15 @@ def lambda_handler(event, context):
                 'saldo_antes_del_pago': float(saldo_anterior),
                 'saldo_actual': float(nuevo_saldo),
                 'fecha': fecha_actualizacion
-            })
+            }
         }
 
     except Exception as e:
         # Manejo de errores internos
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno del servidor',
                 'details': str(e)
-            })
+            }
         }
