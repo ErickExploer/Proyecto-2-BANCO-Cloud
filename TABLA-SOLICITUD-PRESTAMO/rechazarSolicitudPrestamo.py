@@ -23,10 +23,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -39,10 +39,10 @@ def lambda_handler(event, context):
         if not usuario_id or not solicitud_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'Los campos usuario_id y solicitud_id son obligatorios'
-                })
+                }
             }
 
         # Obtener la solicitud desde DynamoDB
@@ -53,17 +53,17 @@ def lambda_handler(event, context):
         if not solicitud:
             return {
                 'statusCode': 404,
-                'body': json.dumps({'error': 'Solicitud no encontrada'})
+                'body': {'error': 'Solicitud no encontrada'}
             }
 
         # Validar si la solicitud ya fue revisada
         if solicitud.get('estado') != 'pendiente':
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'La solicitud ya fue revisada',
                     'estado_actual': solicitud.get('estado')
-                })
+                }
             }
 
         # Actualizar el estado de la solicitud a 'rechazado'
@@ -76,20 +76,20 @@ def lambda_handler(event, context):
         # Retornar respuesta exitosa
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': 'Solicitud rechazada exitosamente',
                 'usuario_id': usuario_id,
                 'solicitud_id': solicitud_id,
                 'nuevo_estado': 'rechazado'
-            })
+            }
         }
 
     except Exception as e:
         # Manejo de errores generales
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al rechazar la solicitud',
                 'details': str(e)
-            })
+            }
         }
