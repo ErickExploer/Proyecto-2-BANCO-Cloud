@@ -26,10 +26,10 @@ def lambda_handler(event, context):
         if not usuario_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El usuario_id es obligatorio'
-                })
+                }
             }
 
         # Consultar préstamos por usuario_id
@@ -46,24 +46,24 @@ def lambda_handler(event, context):
         if not prestamos_serializables:
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': {
                     'message': 'No se encontraron préstamos para el usuario especificado.',
                     'usuario_id': usuario_id
-                })
+                }
             }
 
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': 'Préstamos encontrados',
                 'usuario_id': usuario_id,
                 'prestamos': prestamos_serializables
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps({'error': 'Error interno del servidor', 'details': str(e)})
+            'body': {'error': 'Error interno del servidor', 'details': str(e)}
         }
