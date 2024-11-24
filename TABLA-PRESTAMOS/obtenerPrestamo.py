@@ -27,10 +27,10 @@ def lambda_handler(event, context):
         if not usuario_id or not prestamo_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El usuario_id y el prestamo_id son obligatorios'
-                })
+                }
             }
 
         # Obtener el préstamo de DynamoDB
@@ -39,7 +39,7 @@ def lambda_handler(event, context):
         if 'Item' not in response:
             return {
                 'statusCode': 404,
-                'body': json.dumps({'error': 'Préstamo no encontrado'})
+                'body': {'error': 'Préstamo no encontrado'}
             }
 
         # Convertir el préstamo a tipos serializables
@@ -47,14 +47,14 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': 'Préstamo encontrado',
                 'prestamo': prestamo
-            })
+            }
         }
 
     except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps({'error': 'Error interno del servidor', 'details': str(e)})
+            'body': {'error': 'Error interno del servidor', 'details': str(e)}
         }
