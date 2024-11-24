@@ -19,7 +19,8 @@ functions:
           path: /solicitud-prestamo/crear
           method: post
           cors: true
-
+          integration: lambda
+          
   listarSolicitudesPrestamo:
     handler: listarSolicitudesPrestamo.lambda_handler
     events:
@@ -27,7 +28,8 @@ functions:
           path: /solicitud-prestamo/listar
           method: post
           cors: true
-
+          integration: lambda
+          
   aceptarSolicitudPrestamo:
     handler: aceptarSolicitudPrestamo.lambda_handler
     events:
@@ -35,7 +37,8 @@ functions:
           path: /solicitud-prestamo/aceptar
           method: post
           cors: true
-
+          integration: lambda
+          
   rechazarSolicitudPrestamo:
     handler: rechazarSolicitudPrestamo.lambda_handler
     events:
@@ -51,7 +54,8 @@ functions:
           path: /solicitud-prestamo/obtener
           method: post
           cors: true
-
+          integration: lambda
+          
   listarPorEstado:
     handler: filtrarPorEstado.lambda_handler
     events:
@@ -59,7 +63,8 @@ functions:
           path: /solicitud-prestamo/listar-estado
           method: post
           cors: true
-
+          integration: lambda
+          
   eliminarSolicitudPrestamo:
     handler: eliminarSolicitudPrestamo.lambda_handler
     events:
@@ -67,7 +72,8 @@ functions:
           path: /solicitud-prestamo/eliminar
           method: delete
           cors: true
-
+          integration: lambda
+          
 resources:
   Resources:
     SolicitudPrestamoTable:
