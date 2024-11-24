@@ -32,11 +32,11 @@ def lambda_handler(event, context):
         
         return {
             'statusCode': 200,
-            'body': json.dumps(item)  # Convertir el diccionario a JSON en la respuesta
+            'body': item  # Convertir el diccionario a JSON en la respuesta
         }
     except Exception as e:
         print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps(f"Error interno del servidor: {str(e)}")
+            'body': f"Error interno del servidor: {str(e)}"
         }
