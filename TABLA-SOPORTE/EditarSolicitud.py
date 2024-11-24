@@ -37,12 +37,12 @@ def lambda_handler(event, context):
             # Retornar el mensaje de error junto con los detalles de la solicitud original
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'mensaje': 'La solicitud ya fue respondida y no puede ser modificada.',
                     'titulo': solicitud_anterior.get('Titulo', 'No disponible'),
                     'descripcion': solicitud_anterior.get('descripcion', 'No disponible'),
                     'respuesta': solicitud_anterior.get('respuesta', 'No disponible')
-                })
+                }
             }
         
         # Actualizar la solicitud si está en estado "pendiente"
@@ -83,15 +83,15 @@ def lambda_handler(event, context):
         # Retornar ambos JSON en la respuesta
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'solicitud_anterior': solicitud_anterior_json,
                 'solicitud_modificada': solicitud_modificada
-            })
+            }
         }
     
     except Exception as e:
         print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps(f"Error interno del servidor: {str(e)}")
+            'body': f"Error interno del servidor: {str(e)}"
         }
