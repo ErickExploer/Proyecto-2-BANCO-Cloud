@@ -17,18 +17,18 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data or 'datos_pago' not in data:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': "Campos 'usuario_id' y 'datos_pago' son obligatorios"
-                })
+                }
             }
         
         datos_pago = data['datos_pago']
         if 'monto' not in datos_pago or 'titulo' not in datos_pago or 'descripcion' not in datos_pago:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': "Campos 'monto', 'titulo', y 'descripcion' son obligatorios en 'datos_pago'"
-                })
+                }
             }
         
         # Validar que el monto sea un número positivo
@@ -36,9 +36,9 @@ def lambda_handler(event, context):
         if not isinstance(monto, (int, float)) or monto <= 0:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': "El campo 'monto' debe ser un número positivo"
-                })
+                }
             }
         
         # Convertir monto a Decimal para DynamoDB
@@ -67,7 +67,7 @@ def lambda_handler(event, context):
         # Respuesta de éxito
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': "Pago de deuda creado correctamente",
                 'data': {
                     'usuario_id': usuario_id,
@@ -79,15 +79,15 @@ def lambda_handler(event, context):
                     'estado': 'pendiente',
                     'fecha': item['fecha']
                 }
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error en Lambda: {str(e)}")  # Imprimir error en los logs de CloudWatch
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': "Error interno del servidor",
                 'details': str(e)
-            })
+            }
         }
