@@ -11,10 +11,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -28,10 +28,10 @@ def lambda_handler(event, context):
         if not usuario_id or not solicitud_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El usuario_id y el solicitud_id son obligatorios'
-                })
+                }
             }
 
         # Verificar si la solicitud existe
@@ -39,10 +39,10 @@ def lambda_handler(event, context):
         if 'Item' not in response:
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud no encontrada',
                     'details': f'No se encontró la solicitud con usuario_id {usuario_id} y solicitud_id {solicitud_id}'
-                })
+                }
             }
 
         # Eliminar la solicitud
@@ -50,17 +50,17 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': f'Solicitud {solicitud_id} del usuario {usuario_id} eliminada correctamente'
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error inesperado: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al eliminar la solicitud',
                 'details': str(e)
-            })
+            }
         }
