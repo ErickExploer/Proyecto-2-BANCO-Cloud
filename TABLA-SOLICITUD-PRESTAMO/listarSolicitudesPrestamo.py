@@ -26,10 +26,10 @@ def lambda_handler(event, context):
         if not usuario_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El campo usuario_id es obligatorio'
-                })
+                }
             }
 
         # Consulta a DynamoDB para obtener solicitudes por usuario_id
@@ -42,13 +42,13 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps(items)  # Serializar los resultados a JSON
+            'body': items  # Serializar los resultados a JSON
         }
     except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error al listar las solicitudes de préstamo',
                 'details': str(e)
-            })
+            }
         }
