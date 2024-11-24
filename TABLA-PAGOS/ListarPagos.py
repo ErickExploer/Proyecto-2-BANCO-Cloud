@@ -36,10 +36,10 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body':{
                     'error': 'Solicitud inválida',
                     'details': 'Falta el campo usuario_id en el cuerpo de la solicitud'
-                })
+                }
             }
         
         usuario_id = data['usuario_id']
@@ -55,15 +55,15 @@ def lambda_handler(event, context):
         # Retornar los pagos en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(items)
+            'body': items
         }
     
     except Exception as e:
         # Manejo de errores con detalles específicos
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error al listar los pagos',
                 'details': str(e)
-            })
+            }
         }
