@@ -46,10 +46,10 @@ def lambda_handler(event, context):
             print(f"Pago no encontrado: usuario_id={usuario_id}, pago_id={pago_id}")
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': {
                     'error': 'Pago no encontrado',
                     'details': f'No se encontró el pago con usuario_id {usuario_id} y pago_id {pago_id}'
-                })
+                }
             }
 
         # Eliminar el pago
@@ -59,9 +59,9 @@ def lambda_handler(event, context):
         # Respuesta exitosa
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': f'Pago {pago_id} del usuario {usuario_id} eliminado exitosamente'
-            })
+            }
         }
 
     except Exception as e:
@@ -69,8 +69,8 @@ def lambda_handler(event, context):
         print(f"Error inesperado: {str(e)}")  # Log del error
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al eliminar el pago',
                 'details': str(e)
-            })
+            }
         }
