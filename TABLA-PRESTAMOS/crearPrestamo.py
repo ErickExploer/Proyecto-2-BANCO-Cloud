@@ -64,18 +64,18 @@ def lambda_handler(event, context):
         # Responder con los datos
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': 'Préstamo creado exitosamente',
                 'prestamo': decimal_to_serializable(prestamo_item)
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al crear el préstamo',
                 'details': str(e)
-            })
+            }
         }
