@@ -30,12 +30,12 @@ def lambda_handler(event, context):
         if estado_actual == 'pagado':
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'El pago ya ha sido completado y no se pueden modificar sus atributos',
                     'pago_id': pago_id,
                     'usuario_id': usuario_id,
                     'estado_actual': estado_actual
-                })
+                }
             }
 
         # Preparar la actualización para todos los atributos excepto el estado
@@ -61,7 +61,7 @@ def lambda_handler(event, context):
         # Respuesta de éxito
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': f'Pago {pago_id} actualizado con éxito',
                 'usuario_id': usuario_id,
                 'pago_id': pago_id,
@@ -70,15 +70,15 @@ def lambda_handler(event, context):
                 'monto': float(monto),
                 'estado': estado_actual,  # Mantenemos el estado sin cambios
                 'fecha_modificacion': fecha_modificacion
-            })
+            }
         }
 
     except Exception as e:
         # Manejo de errores con respuesta detallada
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno del servidor al actualizar el pago',
                 'details': str(e)
-            })
+            }
         }
