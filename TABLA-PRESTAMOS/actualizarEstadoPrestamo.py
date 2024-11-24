@@ -33,10 +33,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -51,10 +51,10 @@ def lambda_handler(event, context):
         if not usuario_id or not prestamo_id or not datos_a_actualizar:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El usuario_id, prestamo_id y datos a actualizar son obligatorios'
-                })
+                }
             }
 
         # Validar que el préstamo exista
@@ -83,10 +83,10 @@ def lambda_handler(event, context):
         if not datos_filtrados:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'No hay campos válidos para actualizar',
                     'details': f'Campos permitidos: {list(campos_permitidos)}'
-                })
+                }
             }
 
         # Construir la expresión de actualización dinámicamente
@@ -114,18 +114,18 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': f'Préstamo {prestamo_id} actualizado correctamente',
                 'datos_actualizados': decimal_to_serializable(datos_filtrados)
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error inesperado: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al actualizar el préstamo',
                 'details': str(e)
-            })
+            }
         }
