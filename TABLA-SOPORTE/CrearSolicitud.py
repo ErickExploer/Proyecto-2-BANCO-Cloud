@@ -1,24 +1,35 @@
 import boto3
 import uuid
 from datetime import datetime
-import json
-import os
 
+# Obtener referencia a la tabla DynamoDB
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('TABLA-SOPORTE')
 
 def lambda_handler(event, context):
     try:
-        # Cargar el cuerpo de la solicitud en caso de que sea un string
-        data = json.loads(event['body'])
+        # Cargar el cuerpo de la solicitud y convertirlo a un diccionario
+        data = eval(event['body']) if isinstance(event['body'], str) else event['body']
         
+        # Validar campos requeridos
+        if 'usuario_id' not in data or 'Titulo' not in data or 'descripcion' not in data:
+            return {
+                'statusCode': 400,
+                'body': {
+                    "error": "Campos 'usuario_id', 'Titulo' y 'descripcion' son obligatorios"
+                }
+            }
+        
+        # Extraer datos del cuerpo
         usuario_id = data['usuario_id']
         titulo = data['Titulo']
         descripcion = data['descripcion']
         
+        # Generar ticket ID y fecha
         ticket_id = str(uuid.uuid4())
         fecha = datetime.utcnow().isoformat()
         
+        # Crear item para insertar en DynamoDB
         item = {
             'usuario_id': usuario_id,
             'ticket_id': ticket_id,
@@ -28,15 +39,31 @@ def lambda_handler(event, context):
             'fecha': fecha
         }
         
+        # Insertar en DynamoDB
         table.put_item(Item=item)
         
+        # Respuesta de éxito
         return {
             'statusCode': 200,
-            'body': item  # Convertir el diccionario a JSON en la respuesta
+            'body': {
+                "message": "Solicitud de soporte creada correctamente",
+                "data": {
+                    "usuario_id": usuario_id,
+                    "ticket_id": ticket_id,
+                    "Titulo": titulo,
+                    "descripcion": descripcion,
+                    "estado": "pendiente",
+                    "fecha": fecha
+                }
+            }
         }
+
     except Exception as e:
-        print(f"Error: {str(e)}")
+        # Respuesta de error
         return {
             'statusCode': 500,
-            'body': f"Error interno del servidor: {str(e)}"
+            'body': {
+                "error": "Error interno del servidor",
+                "details": str(e)
+            }
         }
