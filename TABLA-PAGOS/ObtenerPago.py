@@ -22,10 +22,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud en el evento'
-                })
+                }
             }
         
         # Cargar el cuerpo de la solicitud
@@ -35,10 +35,10 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data or 'pago_id' not in data:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'Faltan campos obligatorios: usuario_id o pago_id en el cuerpo de la solicitud'
-                })
+                }
             }
         
         usuario_id = data['usuario_id']
