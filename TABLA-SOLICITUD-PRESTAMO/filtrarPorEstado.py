@@ -23,10 +23,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -37,10 +37,10 @@ def lambda_handler(event, context):
         if not estado or estado not in ['aceptado', 'rechazado']:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El estado debe ser "aceptado" o "rechazado"'
-                })
+                }
             }
 
         # Escanear solicitudes según el estado
@@ -53,19 +53,19 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps({
+            'body': {
                 'message': f'Solicitudes con estado {estado} encontradas',
                 'estado': estado,
                 'solicitudes': solicitudes
-            })
+            }
         }
 
     except Exception as e:
         print(f"Error: {str(e)}")
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al procesar la solicitud',
                 'details': str(e)
-            })
+            }
         }
