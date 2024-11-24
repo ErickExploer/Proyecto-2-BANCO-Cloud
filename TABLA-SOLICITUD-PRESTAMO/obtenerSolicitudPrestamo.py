@@ -24,10 +24,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
         
         data = json.loads(event['body'])
@@ -39,10 +39,10 @@ def lambda_handler(event, context):
         if not usuario_id or not solicitud_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'Los campos usuario_id y solicitud_id son obligatorios'
-                })
+                }
             }
 
         # Obtener la solicitud de DynamoDB
@@ -52,7 +52,7 @@ def lambda_handler(event, context):
         if not solicitud:
             return {
                 'statusCode': 404,
-                'body': json.dumps({'error': 'Solicitud no encontrada'})
+                'body': {'error': 'Solicitud no encontrada'}
             }
 
         # Convertir Decimal a tipos JSON serializables
@@ -60,14 +60,14 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': json.dumps(solicitud_serializable)
+            'body': solicitud_serializable
         }
     except Exception as e:
         # Manejo de errores generales
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al obtener la solicitud',
                 'details': str(e)
-            })
+            }
         }
