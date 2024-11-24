@@ -21,7 +21,8 @@ functions:
           path: /prestamo/crear
           method: post
           cors: true
-
+          integration: lambda
+          
   obtenerPrestamo:
     handler: obtenerPrestamo.lambda_handler
     events:
@@ -29,7 +30,8 @@ functions:
           path: /prestamo/obtener
           method: post
           cors: true
-
+          integration: lambda
+          
   actualizarEstadoPrestamo:
     handler: actualizarEstadoPrestamo.lambda_handler
     events:
@@ -37,7 +39,8 @@ functions:
           path: /prestamo/actualizar-estado
           method: post
           cors: true
-
+          integration: lambda
+          
   listarPrestamobyID:
     handler: listarPrestamoPorUsuario.lambda_handler
     events:
@@ -45,7 +48,8 @@ functions:
           path: /prestamo/listar-usuario
           method: post
           cors: true
-
+          integration: lambda
+          
   eliminarPrestamo:
     handler: eliminarPrestamo.lambda_handler
     events:
@@ -53,7 +57,8 @@ functions:
           path: /prestamo/eliminar
           method: delete
           cors: true
-
+          integration: lambda
+          
 resources:
   Resources:
     PrestamosTable:
