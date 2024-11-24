@@ -24,10 +24,10 @@ def lambda_handler(event, context):
         if 'body' not in event or not event['body']:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -36,10 +36,10 @@ def lambda_handler(event, context):
         except json.JSONDecodeError:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'El cuerpo de la solicitud no está en formato JSON válido'
-                })
+                }
             }
 
         # Validar campos requeridos
@@ -50,10 +50,10 @@ def lambda_handler(event, context):
         if not usuario_id or not monto:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'Faltan campos obligatorios: usuario_id o monto'
-                })
+                }
             }
 
         # Crear la solicitud
@@ -66,10 +66,10 @@ def lambda_handler(event, context):
         except Exception:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Monto inválido',
                     'details': 'El monto debe ser un número válido'
-                })
+                }
             }
 
         item = {
@@ -86,14 +86,14 @@ def lambda_handler(event, context):
         # Convertir el resultado a un formato JSON serializable
         return {
             'statusCode': 200,
-            'body': json.dumps(decimal_to_serializable(item))
+            'body': decimal_to_serializable(item)
         }
 
     except Exception as e:
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al crear la solicitud',
                 'details': str(e)
-            })
+            }
         }
