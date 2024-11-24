@@ -1,27 +1,41 @@
 import boto3
-import json
 from boto3.dynamodb.conditions import Key
 
+# Inicializar DynamoDB
 dynamodb = boto3.resource('dynamodb')
 
 def lambda_handler(event, context):
-    data = json.loads(event['body'])
-    cuenta_origen = data['cuenta_origen']
-    
-    transaccion_table = dynamodb.Table('TablaTransacciones')
-    
     try:
+        # Convertir el cuerpo del evento a un diccionario
+        data = eval(event['body']) if isinstance(event['body'], str) else event['body']
+        cuenta_origen = data['cuenta_origen']
+        
+        # Obtener referencia a la tabla de transacciones
+        transaccion_table = dynamodb.Table('TABLA-TRANSACCION')
+        
+        # Consultar transacciones por cuenta origen
         response = transaccion_table.query(
             KeyConditionExpression=Key('cuenta_origen').eq(cuenta_origen)
         )
         
+        # Obtener los ítems de la consulta
+        items = response.get('Items', [])
+        
+        # Respuesta exitosa
         return {
             'statusCode': 200,
-            'body': json.dumps(response.get('Items', []))
+            'body': {
+                "message": "Transacciones listadas correctamente",
+                "data": items
+            }
         }
     
     except Exception as e:
+        # Respuesta de error
         return {
             'statusCode': 500,
-            'body': json.dumps({'error': f'Error al listar transacciones: {str(e)}'})
+            'body': {
+                "error": "Error al listar transacciones",
+                "details": str(e)
+            }
         }
