@@ -19,6 +19,7 @@ functions:
           path: /soporte/crear
           method: post
           cors: true
+          integration: lambda
 
   EliminarSolicitud:
     handler: EliminarSolicitud.lambda_handler
@@ -27,6 +28,7 @@ functions:
           path: /soporte/eliminar
           method: delete
           cors: true
+          integration: lambda
 
   EditarSolicitud:
     handler: EditarSolicitud.lambda_handler
@@ -35,6 +37,7 @@ functions:
           path: /soporte/editar
           method: put
           cors: true
+          integration: lambda
 
   ObtenerSolicitud:
     handler: ObtenerSolicitud.lambda_handler
@@ -43,6 +46,7 @@ functions:
           path: /soporte/obtener
           method: post
           cors: true
+          integration: lambda
 
   ListarSolicitudes:
     handler: ListarSolicitudes.lambda_handler
@@ -51,6 +55,7 @@ functions:
           path: /soporte/listar
           method: post
           cors: true
+          integration: lambda
 
   ListarSolicitudesPorUsuario:
     handler: ListarSolicitudesPorUsuario.lambda_handler
@@ -59,6 +64,7 @@ functions:
           path: /soporte/listar-usuario
           method: post
           cors: true
+          integration: lambda
 
   ResponderSolicitud:
     handler: ResponderSolicitud.lambda_handler
@@ -67,6 +73,7 @@ functions:
           path: /soporte/responder
           method: post
           cors: true
+          integration: lambda
 
 resources:
   Resources:
