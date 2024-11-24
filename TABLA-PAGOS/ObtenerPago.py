@@ -65,15 +65,15 @@ def lambda_handler(event, context):
         # Retornar el pago en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(item)
+            'body': item
         }
     
     except Exception as e:
         # Manejo de errores con detalles específicos
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno del servidor',
                 'details': str(e)
-            })
+            }
         }
