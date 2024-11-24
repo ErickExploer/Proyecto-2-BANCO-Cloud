@@ -23,10 +23,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -39,10 +39,10 @@ def lambda_handler(event, context):
         if not usuario_id or not solicitud_id:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'Los campos usuario_id y solicitud_id son obligatorios'
-                })
+                }
             }
 
         # Obtener la solicitud desde DynamoDB
@@ -53,7 +53,7 @@ def lambda_handler(event, context):
         if not solicitud:
             return {
                 'statusCode': 404,
-                'body': json.dumps({'error': 'Solicitud no encontrada'})
+                'body': {'error': 'Solicitud no encontrada'}
             }
 
         # Manejar estados de la solicitud
@@ -61,18 +61,18 @@ def lambda_handler(event, context):
         if estado_actual == 'rechazado':
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'message': 'La solicitud ya fue rechazada',
                     'estado_actual': estado_actual
-                })
+                }
             }
         elif estado_actual == 'aceptado':
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'message': 'La solicitud ya fue aceptada previamente',
                     'estado_actual': estado_actual
-                })
+                }
             }
         elif estado_actual == 'pendiente':
             # Actualizar el estado de la solicitud a 'aceptado'
@@ -84,29 +84,29 @@ def lambda_handler(event, context):
 
             return {
                 'statusCode': 200,
-                'body': json.dumps({
+                'body': {
                     'message': 'Solicitud aceptada exitosamente',
                     'usuario_id': usuario_id,
                     'solicitud_id': solicitud_id,
                     'nuevo_estado': 'aceptado'
-                })
+                }
             }
 
         # Manejo de estados desconocidos (si ocurre)
         return {
             'statusCode': 400,
-            'body': json.dumps({
+            'body': {
                 'error': 'Estado desconocido',
                 'estado_actual': estado_actual
-            })
+            }
         }
 
     except Exception as e:
         # Manejo de errores generales
         return {
             'statusCode': 500,
-            'body': json.dumps({
+            'body': {
                 'error': 'Error interno al procesar la solicitud',
                 'details': str(e)
-            })
+            }
         }
