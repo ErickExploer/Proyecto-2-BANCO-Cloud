@@ -1,5 +1,4 @@
 import boto3
-import json
 import uuid
 from decimal import Decimal
 from datetime import datetime
@@ -32,8 +31,8 @@ def lambda_handler(event, context):
 
         # Parsear el cuerpo de la solicitud
         try:
-            data = json.loads(event['body'])
-        except json.JSONDecodeError:
+            data = event['body']
+        except Exception:
             return {
                 'statusCode': 400,
                 'body': {
@@ -86,7 +85,10 @@ def lambda_handler(event, context):
         # Convertir el resultado a un formato JSON serializable
         return {
             'statusCode': 200,
-            'body': decimal_to_serializable(item)
+            'body': {
+                "message": "Solicitud creada exitosamente",
+                "data": decimal_to_serializable(item)
+            }
         }
 
     except Exception as e:
