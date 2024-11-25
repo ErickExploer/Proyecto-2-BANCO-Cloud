@@ -1,5 +1,4 @@
 import boto3
-import json
 from boto3.dynamodb.conditions import Key
 from decimal import Decimal
 
@@ -21,7 +20,7 @@ def decimal_to_serializable(obj):
 def lambda_handler(event, context):
     try:
         # Validar y parsear el cuerpo de la solicitud
-        if 'body' not in event:
+        if 'body' not in event or not event['body']:
             return {
                 'statusCode': 400,
                 'body': {
@@ -30,7 +29,16 @@ def lambda_handler(event, context):
                 }
             }
         
-        data = json.loads(event['body'])
+        try:
+            data = event['body']
+        except Exception:
+            return {
+                'statusCode': 400,
+                'body': {
+                    'error': 'Solicitud inválida',
+                    'details': 'El cuerpo de la solicitud no está en formato JSON válido'
+                }
+            }
         
         usuario_id = data.get('usuario_id')
         solicitud_id = data.get('solicitud_id')
@@ -60,7 +68,10 @@ def lambda_handler(event, context):
 
         return {
             'statusCode': 200,
-            'body': solicitud_serializable
+            'body': {
+                'message': 'Solicitud obtenida exitosamente',
+                'data': solicitud_serializable
+            }
         }
     except Exception as e:
         # Manejo de errores generales
