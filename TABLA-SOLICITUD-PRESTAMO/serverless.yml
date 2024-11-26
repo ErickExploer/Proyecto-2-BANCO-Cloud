@@ -104,5 +104,3 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
-plugins:
-  - "@serverless/compose"
