@@ -95,5 +95,4 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
-plugins:
-  - "@serverless/compose"
+
