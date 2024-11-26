@@ -16,6 +16,8 @@ def decimal_to_serializable(obj):
         return {k: decimal_to_serializable(v) for k, v in obj.items()}
     return obj
 
+
+
 def lambda_handler(event, context):
     try:
         # Verificar que 'body' existe en el evento
@@ -29,7 +31,7 @@ def lambda_handler(event, context):
             }
         
         # Cargar el cuerpo de la solicitud
-        data = json.loads(event['body'])
+        data = event['body']
         
         # Validar que 'usuario_id' está presente en el JSON de entrada
         if 'usuario_id' not in data:
@@ -49,12 +51,12 @@ def lambda_handler(event, context):
         )
 
         # Convertir el resultado a un formato JSON serializable
-        items = decimal_to_serializable(response.get('Items', []))
+        items = response.get('Items', [])
 
         # Retornar los pagos en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(items)
+            'body': items
         }
     
     except Exception as e:
