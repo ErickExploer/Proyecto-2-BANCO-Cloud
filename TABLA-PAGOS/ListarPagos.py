@@ -55,7 +55,7 @@ def lambda_handler(event, context):
         # Retornar los pagos en formato JSON
         return {
             'statusCode': 200,
-            'body': items
+            'body': json.dumbs(items)
         }
     
     except Exception as e:
