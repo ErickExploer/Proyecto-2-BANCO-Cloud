@@ -21,7 +21,7 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({  # Convertir a cadena JSON
+                'body': json.dumps({  # Serializar a cadena JSON
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud en el evento'
                 })
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data or 'pago_id' not in data:
             return {
                 'statusCode': 400,
-                'body': json.dumps({  # Convertir a cadena JSON
+                'body': json.dumps({  # Serializar a cadena JSON
                     'error': 'Solicitud inválida',
                     'details': 'Faltan campos obligatorios: usuario_id o pago_id en el cuerpo de la solicitud'
                 })
@@ -52,7 +52,7 @@ def lambda_handler(event, context):
         if 'Item' not in response:
             return {
                 'statusCode': 404,
-                'body': json.dumps({  # Convertir a cadena JSON
+                'body': json.dumps({  # Serializar a cadena JSON
                     'error': 'Pago no encontrado',
                     'details': f'No se encontró el pago con ID {pago_id} para el usuario {usuario_id}'
                 })
@@ -64,14 +64,14 @@ def lambda_handler(event, context):
         # Retornar el pago en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(item)  # Convertir a cadena JSON
+            'body': json.dumps(item)  # Serializar a cadena JSON
         }
     
     except Exception as e:
         # Manejo de errores con detalles específicos
         return {
             'statusCode': 500,
-            'body': json.dumps({  # Convertir a cadena JSON
+            'body': json.dumps({  # Serializar a cadena JSON
                 'error': 'Error interno del servidor',
                 'details': str(e)
             })
