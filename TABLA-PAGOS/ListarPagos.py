@@ -5,19 +5,6 @@ from decimal import Decimal
 dynamodb = boto3.resource('dynamodb')
 pagos_table = dynamodb.Table('TABLA-PAGOS')
 
-# Función auxiliar para convertir Decimals a tipos serializables
-def decimal_to_serializable(obj):
-    if isinstance(obj, Decimal):
-        # Convertir a int o float según el tipo de dato
-        return int(obj) if obj % 1 == 0 else float(obj)
-    elif isinstance(obj, list):
-        return [decimal_to_serializable(item) for item in obj]
-    elif isinstance(obj, dict):
-        return {k: decimal_to_serializable(v) for k, v in obj.items()}
-    return obj
-
-
-
 def lambda_handler(event, context):
     try:
         # Verificar que 'body' existe en el evento
