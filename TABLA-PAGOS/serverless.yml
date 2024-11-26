@@ -93,8 +93,7 @@ resources:
           - AttributeName: usuario_id
             KeyType: HASH
           - AttributeName: pago_id
-            KeyType: RANGE
-        BillingMode: PAY_PER_REQUEST
+            KeyType: RANGE      
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
         GlobalSecondaryIndexes:
@@ -115,3 +114,6 @@ resources:
                 KeyType: RANGE
             Projection:
               ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+        PointInTimeRecoverySpecification:
+        PointInTimeRecoveryEnabled: true    
