@@ -1,12 +1,12 @@
-
 import boto3
 import json
 from decimal import Decimal
+from boto3.dynamodb.conditions import Key
 
 dynamodb = boto3.resource('dynamodb')
 pagos_table = dynamodb.Table('TABLA-PAGOS')
 
-# Función auxiliar para convertir Decimals a tipos serializables
+# Función auxiliar para convertir Decimals a tipos JSON serializables
 def decimal_to_serializable(obj):
     if isinstance(obj, Decimal):
         # Convertir a int o float según el tipo de dato
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': json.dumps({  # Serializar correctamente
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud en el evento'
                 })
@@ -36,17 +36,17 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data:
             return {
                 'statusCode': 400,
-                'body':{
+                'body': json.dumps({  # Serializar correctamente
                     'error': 'Solicitud inválida',
                     'details': 'Falta el campo usuario_id en el cuerpo de la solicitud'
-                }
+                })
             }
         
         usuario_id = data['usuario_id']
 
         # Consultar en DynamoDB para obtener los pagos del usuario
         response = pagos_table.query(
-            KeyConditionExpression=boto3.dynamodb.conditions.Key('usuario_id').eq(usuario_id)
+            KeyConditionExpression=Key('usuario_id').eq(usuario_id)
         )
 
         # Convertir el resultado a un formato JSON serializable
@@ -55,15 +55,15 @@ def lambda_handler(event, context):
         # Retornar los pagos en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumbs(items)
+            'body': json.dumps(items)  # Serializar correctamente
         }
     
     except Exception as e:
         # Manejo de errores con detalles específicos
         return {
             'statusCode': 500,
-            'body': {
+            'body': json.dumps({  # Serializar correctamente
                 'error': 'Error al listar los pagos',
                 'details': str(e)
-            }
+            })
         }
