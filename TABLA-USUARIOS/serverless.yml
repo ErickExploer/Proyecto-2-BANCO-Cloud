@@ -100,5 +100,3 @@ resources:
               ProjectionType: ALL
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
-plugins:
-  - "@serverless/compose"
