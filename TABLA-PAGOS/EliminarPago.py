@@ -14,10 +14,10 @@ def lambda_handler(event, context):
             print("Error: No se encontró el cuerpo de la solicitud.")
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body': {
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud'
-                })
+                }
             }
 
         # Parsear el cuerpo de la solicitud
@@ -32,10 +32,10 @@ def lambda_handler(event, context):
             print("Error: usuario_id o pago_id no proporcionados.")
             return {
                 'statusCode': 400,
-                'body': json.dumps({
+                'body':{
                     'error': 'Solicitud inválida',
                     'details': 'El usuario_id y el pago_id son obligatorios'
-                })
+                }
             }
 
         # Verificar si el pago existe antes de eliminarlo
@@ -46,10 +46,10 @@ def lambda_handler(event, context):
             print(f"Pago no encontrado: usuario_id={usuario_id}, pago_id={pago_id}")
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': {
                     'error': 'Pago no encontrado',
                     'details': f'No se encontró el pago con usuario_id {usuario_id} y pago_id {pago_id}'
-                })
+                }
             }
 
         # Eliminar el pago
