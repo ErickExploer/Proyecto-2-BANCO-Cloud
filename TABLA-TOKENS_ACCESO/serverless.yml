@@ -43,3 +43,5 @@ resources:
                 KeyType: HASH
             Projection:
               ProjectionType: ALL
+        PointInTimeRecoverySpecification:
+          PointInTimeRecoveryEnabled: true              
