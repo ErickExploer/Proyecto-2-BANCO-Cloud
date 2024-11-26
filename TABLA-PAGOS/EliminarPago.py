@@ -60,7 +60,7 @@ def lambda_handler(event, context):
         return {
             'statusCode': 200,
             'body': {
-                'message': f'Pago {pago_id} del usuario {usuario_id} eliminado exitosamente'
+                'message': json.dumbs(f'Pago {pago_id} del usuario {usuario_id} eliminado exitosamente')
             }
         }
 
