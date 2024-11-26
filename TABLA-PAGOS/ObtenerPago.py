@@ -5,11 +5,10 @@ from decimal import Decimal
 dynamodb = boto3.resource('dynamodb')
 pagos_table = dynamodb.Table('TABLA-PAGOS')
 
-# Función auxiliar para convertir Decimals a tipos serializables
+# Función auxiliar para convertir Decimals a tipos JSON serializables
 def decimal_to_serializable(obj):
     if isinstance(obj, Decimal):
-        # Convertir a int o float según el tipo de dato
-        return int(obj) if obj % 1 == 0 else float(obj)
+        return float(obj) if obj % 1 != 0 else int(obj)
     elif isinstance(obj, list):
         return [decimal_to_serializable(item) for item in obj]
     elif isinstance(obj, dict):
@@ -22,10 +21,10 @@ def lambda_handler(event, context):
         if 'body' not in event:
             return {
                 'statusCode': 400,
-                'body': {
+                'body': json.dumps({  # Convertir a cadena JSON
                     'error': 'Solicitud inválida',
                     'details': 'No se encontró el cuerpo de la solicitud en el evento'
-                }
+                })
             }
         
         # Cargar el cuerpo de la solicitud
@@ -35,10 +34,10 @@ def lambda_handler(event, context):
         if 'usuario_id' not in data or 'pago_id' not in data:
             return {
                 'statusCode': 400,
-                'body': {
+                'body': json.dumps({  # Convertir a cadena JSON
                     'error': 'Solicitud inválida',
                     'details': 'Faltan campos obligatorios: usuario_id o pago_id en el cuerpo de la solicitud'
-                }
+                })
             }
         
         usuario_id = data['usuario_id']
@@ -53,7 +52,7 @@ def lambda_handler(event, context):
         if 'Item' not in response:
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': json.dumps({  # Convertir a cadena JSON
                     'error': 'Pago no encontrado',
                     'details': f'No se encontró el pago con ID {pago_id} para el usuario {usuario_id}'
                 })
@@ -65,15 +64,15 @@ def lambda_handler(event, context):
         # Retornar el pago en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(item)
+            'body': json.dumps(item)  # Convertir a cadena JSON
         }
     
     except Exception as e:
         # Manejo de errores con detalles específicos
         return {
             'statusCode': 500,
-            'body': {
+            'body': json.dumps({  # Convertir a cadena JSON
                 'error': 'Error interno del servidor',
                 'details': str(e)
-            }
+            })
         }
