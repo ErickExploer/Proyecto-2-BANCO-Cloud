@@ -64,7 +64,7 @@ def lambda_handler(event, context):
         # Retornar el pago en formato JSON
         return {
             'statusCode': 200,
-            'body': json.dumps(item)  # Serializar a cadena JSON
+            'body': item  
         }
     
     except Exception as e:
