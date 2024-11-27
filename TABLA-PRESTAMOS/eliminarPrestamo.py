@@ -18,9 +18,9 @@ def lambda_handler(event, context):
             }
 
         # Parsear el cuerpo de la solicitud
-        data = json.loads(event['body'])
-        usuario_id = data.get('usuario_id')
-        prestamo_id = data.get('prestamo_id')
+        data = event['body']
+        usuario_id = data['usuario_id']
+        prestamo_id = data['prestamo_id']
 
         print(f"Datos recibidos: usuario_id={usuario_id}, prestamo_id={prestamo_id}")
 
