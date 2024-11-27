@@ -40,9 +40,9 @@ def lambda_handler(event, context):
             }
 
         # Parsear el cuerpo de la solicitud
-        data = json.loads(event['body'])
-        usuario_id = data.get('usuario_id')
-        prestamo_id = data.get('prestamo_id')
+        data = event['body']
+        usuario_id = ['usuario_id']
+        prestamo_id = ['prestamo_id']
         datos_a_actualizar = data.get('datos', {})
 
         print(f"Datos recibidos: usuario_id={usuario_id}, prestamo_id={prestamo_id}, datos_a_actualizar={datos_a_actualizar}")
@@ -62,10 +62,10 @@ def lambda_handler(event, context):
         if 'Item' not in response:
             return {
                 'statusCode': 404,
-                'body': json.dumps({
+                'body': {
                     'error': 'Préstamo no encontrado',
                     'details': f'No se encontró el préstamo con usuario_id {usuario_id} y prestamo_id {prestamo_id}'
-                })
+                }
             }
 
         # Campos permitidos para la actualización
