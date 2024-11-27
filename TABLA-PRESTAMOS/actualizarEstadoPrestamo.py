@@ -41,8 +41,8 @@ def lambda_handler(event, context):
 
         # Parsear el cuerpo de la solicitud
         data = event['body']
-        usuario_id = ['usuario_id']
-        prestamo_id = ['prestamo_id']
+        usuario_id = data['usuario_id']
+        prestamo_id = data['prestamo_id']
         datos_a_actualizar = data.get('datos', {})
 
         print(f"Datos recibidos: usuario_id={usuario_id}, prestamo_id={prestamo_id}, datos_a_actualizar={datos_a_actualizar}")
