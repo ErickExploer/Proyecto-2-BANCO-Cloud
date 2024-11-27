@@ -24,7 +24,7 @@ def decimal_to_serializable(obj):
 def lambda_handler(event, context):
     try:
         # Obtener datos de la solicitud
-        data = json.loads(event['body'])
+        data = event['body']
         print(f"Datos recibidos: {data}")
         
         usuario_id = data['usuario_id']
