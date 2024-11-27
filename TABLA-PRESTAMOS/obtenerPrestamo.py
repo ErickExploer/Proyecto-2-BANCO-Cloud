@@ -20,9 +20,9 @@ def decimal_to_serializable(obj):
 def lambda_handler(event, context):
     try:
         # Validar el cuerpo de la solicitud
-        data = json.loads(event['body'])
-        usuario_id = data.get('usuario_id')
-        prestamo_id = data.get('prestamo_id')
+        data = event['body']
+        usuario_id = data['usuario_id']
+        prestamo_id = data['prestamo_id']
 
         if not usuario_id or not prestamo_id:
             return {
