@@ -1,6 +1,7 @@
 import boto3
 import json
 import hashlib
+from boto3.dynamodb.conditions import Key
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
@@ -28,7 +29,34 @@ def lambda_handler(event, context):
 
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table('TABLA-USUARIOS')
-    
+
+    if 'email' in updated_data:
+        email_response = table.query(
+            IndexName='email-index',
+            KeyConditionExpression=Key('email').eq(updated_data['email'])
+        )
+        if email_response.get('Items'):
+            existing_user = email_response['Items'][0]
+            if existing_user['usuario_id'] != usuario_id:
+                return {
+                    'statusCode': 400,
+                    'body': 'El email ya está registrado por otro usuario. Por favor, utiliza otro email.'
+                }
+
+    if 'dni' in updated_data:
+        dni_response = table.query(
+            IndexName='dni-index',
+            KeyConditionExpression=Key('dni').eq(updated_data['dni'])
+        )
+        if dni_response.get('Items'):
+            existing_user = dni_response['Items'][0]
+            if existing_user['usuario_id'] != usuario_id:
+                return {
+                    'statusCode': 400,
+                    'body': 'El DNI ya está registrado por otro usuario. Por favor, utiliza otro DNI.'
+                }
+
+    # Construir la expresión de actualización
     update_expression = "set "
     expression_attribute_values = {}
     for key, value in updated_data.items():
@@ -42,6 +70,7 @@ def lambda_handler(event, context):
                 expression_attribute_values[f":{key}"] = value
     update_expression = update_expression.rstrip(", ")
 
+    # Actualizar el usuario
     try:
         response = table.update_item(
             Key={'usuario_id': usuario_id},
